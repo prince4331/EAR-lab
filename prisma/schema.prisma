@@ -1,0 +1,148 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  role         String   @default("user") // user, admin
+  hashedPassword String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  // Relations
+  blogPosts    BlogPost[]
+  contacts     Contact[]
+  
+  @@map("users")
+}
+
+model Project {
+  id            String   @id @default(cuid())
+  title         String
+  slug          String   @unique
+  summary       String
+  contentMarkdown String  @map("content_markdown")
+  techTags      String   @default("[]") @map("tech_tags") // JSON string array
+  featuredImage String?  @map("featured_image")
+  startDate     DateTime @map("start_date")
+  endDate       DateTime? @map("end_date")
+  clientName    String?  @map("client_name")
+  isPublic      Boolean  @default(true) @map("public")
+  category      String   // embedded, autonomy, sensors, power
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relations
+  caseStudy     CaseStudy?
+  
+  @@map("projects")
+}
+
+model BlogPost {
+  id            String   @id @default(cuid())
+  title         String
+  slug          String   @unique
+  excerpt       String?
+  contentMarkdown String  @map("content_markdown")
+  tags          String   @default("[]") // JSON string array
+  status        String   @default("draft") // draft, published
+  readingTime   Int      @map("reading_time") // in minutes
+  featuredImage String?  @map("featured_image")
+  publishedAt   DateTime? @map("published_at")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relations
+  authorId      String   @map("author_id")
+  author        User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  
+  @@map("blog_posts")
+}
+
+model NewsletterSubscriber {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  name        String?
+  role        String?
+  company     String?
+  isVerified  Boolean  @default(false) @map("verified")
+  subscribedAt DateTime @default(now()) @map("subscribed_at")
+  source      String   // website, event, referral
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("newsletter_subscribers")
+}
+
+model Contact {
+  id            String   @id @default(cuid())
+  name          String
+  email         String
+  company       String?
+  projectDescription String @map("project_description")
+  budgetRange   String?  @map("budget_range")
+  timeline      String?
+  fileUrl       String?  @map("file_url")
+  status        String   @default("new") // new, contacted, qualified, closed
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relations
+  userId        String?  @map("user_id")
+  user          User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  
+  @@map("contacts")
+}
+
+model CaseStudy {
+  id        String   @id @default(cuid())
+  projectId String   @unique @map("project_id")
+  pdfUrl    String   @map("pdf_url")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  @@map("case_studies")
+}
+
+model Workshop {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  syllabus    String
+  price       Float
+  dates       String // JSON array of dates
+  maxAttendees Int    @map("max_attendees")
+  isPublic    Boolean  @default(true) @map("public")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("workshops")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  actorId   String   @map("actor_id")
+  action    String   // create, update, delete, login, etc.
+  resource  String   // user, project, blog_post, etc.
+  resourceId String? @map("resource_id")
+  metadata  String?  // JSON metadata
+  createdAt DateTime @default(now())
+  
+  @@map("audit_logs")
+}
