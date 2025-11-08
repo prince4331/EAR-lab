@@ -119,7 +119,7 @@ export function NewsletterManagement() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold">Newsletter Subscribers</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Newsletter Subscribers</h2>
           <p className="text-gray-600 dark:text-gray-400">
             Manage your newsletter subscriber list
           </p>
@@ -131,19 +131,19 @@ export function NewsletterManagement() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Card>
+        <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">
+            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
               Total Subscribers
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">{subscribers.length}</div>
+            <div className="text-3xl font-bold text-gray-900 dark:text-white">{subscribers.length}</div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">
+            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
               Verified
             </CardTitle>
           </CardHeader>
@@ -151,9 +151,9 @@ export function NewsletterManagement() {
             <div className="text-3xl font-bold text-green-600">{verifiedCount}</div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">
+            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
               Unverified
             </CardTitle>
           </CardHeader>
@@ -175,17 +175,17 @@ export function NewsletterManagement() {
         />
       </div>
 
-      <Card>
+      <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
         <CardHeader>
-          <CardTitle>All Subscribers ({filteredSubscribers.length})</CardTitle>
+          <CardTitle className="text-gray-900 dark:text-white">All Subscribers ({filteredSubscribers.length})</CardTitle>
         </CardHeader>
         <CardContent>
           {loading ? (
             <div className="space-y-4">
               {[...Array(3)].map((_, i) => (
-                <div key={i} className="animate-pulse border rounded-lg p-4">
-                  <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
-                  <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                <div key={i} className="animate-pulse border border-gray-200 dark:border-gray-800 rounded-lg p-4">
+                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
                 </div>
               ))}
             </div>
@@ -198,13 +198,13 @@ export function NewsletterManagement() {
               {filteredSubscribers.map((subscriber) => (
                 <div
                   key={subscriber.id}
-                  className="border rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                  className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
                         <Mail className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                        <span className="font-medium truncate">{subscriber.email}</span>
+                        <span className="font-medium truncate text-gray-900 dark:text-white">{subscriber.email}</span>
                         {subscriber.isVerified ? (
                           <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
                         ) : (

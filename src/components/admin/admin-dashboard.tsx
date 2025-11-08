@@ -103,24 +103,24 @@ export function AdminDashboard({ session }: AdminDashboardProps) {
         {/* Content Area */}
         <main className="flex-1 overflow-auto p-6 bg-gray-100 dark:bg-gray-950">
           <Tabs defaultValue="overview" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-5 lg:w-auto">
-              <TabsTrigger value="overview" className="gap-2">
+            <TabsList className="grid w-full grid-cols-5 lg:w-auto bg-white dark:bg-gray-900">
+              <TabsTrigger value="overview" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
                 <LayoutDashboard className="w-4 h-4" />
                 <span className="hidden sm:inline">Overview</span>
               </TabsTrigger>
-              <TabsTrigger value="blog" className="gap-2">
+              <TabsTrigger value="blog" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
                 <FileText className="w-4 h-4" />
                 <span className="hidden sm:inline">Blog</span>
               </TabsTrigger>
-              <TabsTrigger value="projects" className="gap-2">
+              <TabsTrigger value="projects" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
                 <FolderKanban className="w-4 h-4" />
                 <span className="hidden sm:inline">Projects</span>
               </TabsTrigger>
-              <TabsTrigger value="contacts" className="gap-2">
+              <TabsTrigger value="contacts" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
                 <Mail className="w-4 h-4" />
                 <span className="hidden sm:inline">Contacts</span>
               </TabsTrigger>
-              <TabsTrigger value="newsletter" className="gap-2">
+              <TabsTrigger value="newsletter" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
                 <Users className="w-4 h-4" />
                 <span className="hidden sm:inline">Newsletter</span>
               </TabsTrigger>

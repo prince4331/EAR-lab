@@ -128,7 +128,7 @@ export function ContactManagement() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold">Contact Submissions</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Contact Submissions</h2>
           <p className="text-gray-600 dark:text-gray-400">
             View and manage contact form submissions
           </p>
@@ -147,17 +147,17 @@ export function ContactManagement() {
         </Select>
       </div>
 
-      <Card>
+      <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
         <CardHeader>
-          <CardTitle>Recent Contacts ({contacts.length})</CardTitle>
+          <CardTitle className="text-gray-900 dark:text-white">Recent Contacts ({contacts.length})</CardTitle>
         </CardHeader>
         <CardContent>
           {loading ? (
             <div className="space-y-4">
               {[...Array(3)].map((_, i) => (
-                <div key={i} className="animate-pulse border rounded-lg p-4">
-                  <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
-                  <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                <div key={i} className="animate-pulse border border-gray-200 dark:border-gray-800 rounded-lg p-4">
+                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
                 </div>
               ))}
             </div>
@@ -170,12 +170,12 @@ export function ContactManagement() {
               {contacts.map((contact) => (
                 <div
                   key={contact.id}
-                  className="border rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                  className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
                 >
                   <div className="flex items-start justify-between gap-4 mb-3">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
-                        <h3 className="text-lg font-semibold">{contact.name}</h3>
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{contact.name}</h3>
                         <Badge className={getStatusColor(contact.status)}>
                           {contact.status}
                         </Badge>
@@ -223,8 +223,8 @@ export function ContactManagement() {
                       </Button>
                     </div>
                   </div>
-                  <div className="mt-3 pt-3 border-t">
-                    <p className="text-sm font-medium mb-1">Project Description:</p>
+                  <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                    <p className="text-sm font-medium mb-1 text-gray-900 dark:text-white">Project Description:</p>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
                       {contact.projectDescription}
                     </p>
@@ -232,12 +232,12 @@ export function ContactManagement() {
                       <div className="flex gap-4 mt-2 text-sm">
                         {contact.budgetRange && (
                           <span className="text-gray-600 dark:text-gray-400">
-                            Budget: <span className="font-medium">{contact.budgetRange}</span>
+                            Budget: <span className="font-medium text-gray-900 dark:text-white">{contact.budgetRange}</span>
                           </span>
                         )}
                         {contact.timeline && (
                           <span className="text-gray-600 dark:text-gray-400">
-                            Timeline: <span className="font-medium">{contact.timeline}</span>
+                            Timeline: <span className="font-medium text-gray-900 dark:text-white">{contact.timeline}</span>
                           </span>
                         )}
                       </div>

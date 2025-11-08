@@ -91,7 +91,7 @@ export function ProjectManagement() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Projects</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Projects</h2>
           <p className="text-gray-600 dark:text-gray-400">
             Manage your project portfolio
           </p>
@@ -105,17 +105,17 @@ export function ProjectManagement() {
         </Button>
       </div>
 
-      <Card>
+      <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
         <CardHeader>
-          <CardTitle>All Projects ({projects.length})</CardTitle>
+          <CardTitle className="text-gray-900 dark:text-white">All Projects ({projects.length})</CardTitle>
         </CardHeader>
         <CardContent>
           {loading ? (
             <div className="space-y-4">
               {[...Array(3)].map((_, i) => (
-                <div key={i} className="animate-pulse border rounded-lg p-4">
-                  <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
-                  <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                <div key={i} className="animate-pulse border border-gray-200 dark:border-gray-800 rounded-lg p-4">
+                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
                 </div>
               ))}
             </div>
@@ -128,12 +128,12 @@ export function ProjectManagement() {
               {projects.map((project) => (
                 <div
                   key={project.id}
-                  className="border rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                  className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-2">
-                        <h3 className="text-lg font-semibold truncate">{project.title}</h3>
+                        <h3 className="text-lg font-semibold truncate text-gray-900 dark:text-white">{project.title}</h3>
                         <Badge className={getCategoryColor(project.category)}>
                           {project.category}
                         </Badge>
@@ -144,7 +144,7 @@ export function ProjectManagement() {
                       <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                         {project.summary}
                       </p>
-                      <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500">
+                      <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500 dark:text-gray-500">
                         <span>Started: {new Date(project.startDate).toLocaleDateString()}</span>
                         {project.endDate && (
                           <>

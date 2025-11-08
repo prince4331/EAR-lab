@@ -200,7 +200,7 @@ export function BlogManagement() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold">Blog Posts</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Blog Posts</h2>
           <p className="text-gray-600 dark:text-gray-400">
             Manage your blog content
           </p>
@@ -340,17 +340,17 @@ export function BlogManagement() {
         </Select>
       </div>
 
-      <Card>
+      <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
         <CardHeader>
-          <CardTitle>All Blog Posts ({filteredPosts.length})</CardTitle>
+          <CardTitle className="text-gray-900 dark:text-white">All Blog Posts ({filteredPosts.length})</CardTitle>
         </CardHeader>
         <CardContent>
           {loading ? (
             <div className="space-y-4">
               {[...Array(3)].map((_, i) => (
-                <div key={i} className="animate-pulse border rounded-lg p-4">
-                  <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
-                  <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                <div key={i} className="animate-pulse border border-gray-200 dark:border-gray-800 rounded-lg p-4">
+                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
                 </div>
               ))}
             </div>
@@ -363,12 +363,12 @@ export function BlogManagement() {
               {filteredPosts.map((post) => (
                 <div
                   key={post.id}
-                  className="border rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                  className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-2">
-                        <h3 className="text-lg font-semibold truncate">{post.title}</h3>
+                        <h3 className="text-lg font-semibold truncate text-gray-900 dark:text-white">{post.title}</h3>
                         <Badge variant={post.status === 'published' ? 'default' : 'secondary'}>
                           {post.status}
                         </Badge>
@@ -378,7 +378,7 @@ export function BlogManagement() {
                           {post.excerpt}
                         </p>
                       )}
-                      <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500">
+                      <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500 dark:text-gray-500">
                         <span>By {post.author.name || post.author.email}</span>
                         <span>•</span>
                         <span>{post.readingTime} min read</span>
