@@ -1,0 +1,64 @@
+# Vercel Ignore File
+# Files and directories to exclude from deployment
+
+# Development files
+*.log
+*.local
+.env.local
+.env.development
+
+# Database
+*.db
+*.db-journal
+dev.db
+dev.db-journal
+prisma/dev.db
+prisma/dev.db-journal
+
+# Testing
+coverage/
+.nyc_output/
+test-results/
+
+# Build artifacts
+.next/
+out/
+dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+Dockerfile
+docker-compose.yml
+docker-compose.prod.yml
+.dockerignore
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# Documentation (optional - keep if you want them)
+# README.md
+# DEPLOYMENT.md
+
+# Local development
+server.ts
+nodemon.json
+server.log
+
+# Temporary files
+tmp/
+temp/
+.cache/
+
+# Node modules (handled by Vercel)
+node_modules/

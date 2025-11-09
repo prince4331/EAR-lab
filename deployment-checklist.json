@@ -1,0 +1,140 @@
+{
+  "name": "EAR Lab - Production Deployment Checklist",
+  "version": "1.0.0",
+  "steps": [
+    {
+      "step": 1,
+      "title": "Code Preparation",
+      "tasks": [
+        "✅ Production build tested successfully",
+        "✅ No TypeScript errors",
+        "✅ No ESLint errors",
+        "✅ All pages render correctly",
+        "✅ API routes functional"
+      ],
+      "status": "COMPLETE"
+    },
+    {
+      "step": 2,
+      "title": "Environment Configuration",
+      "tasks": [
+        "⚠️ Generate NEWSLETTER_SECRET (32+ chars)",
+        "⚠️ Generate NEXTAUTH_SECRET (32+ chars)",
+        "⚠️ Generate SESSION_SECRET (32+ chars)",
+        "⚠️ Configure SMTP credentials",
+        "⚠️ Set ADMIN_EMAIL",
+        "⚠️ Update NEXT_PUBLIC_APP_URL after deployment"
+      ],
+      "status": "PENDING",
+      "commands": {
+        "generate_secrets": "node -e \"console.log('NEWSLETTER_SECRET:', require('crypto').randomBytes(32).toString('base64')); console.log('NEXTAUTH_SECRET:', require('crypto').randomBytes(32).toString('base64')); console.log('SESSION_SECRET:', require('crypto').randomBytes(32).toString('base64'))\""
+      }
+    },
+    {
+      "step": 3,
+      "title": "Database Setup",
+      "tasks": [
+        "⚠️ Choose database provider (Vercel Postgres/Supabase/PlanetScale)",
+        "⚠️ Create database",
+        "⚠️ Get connection string",
+        "⚠️ Update DATABASE_URL in Vercel",
+        "⚠️ Update schema.prisma to use postgresql",
+        "⚠️ Run: npx prisma migrate deploy"
+      ],
+      "status": "PENDING",
+      "recommended": "Vercel Postgres (seamless integration)",
+      "alternatives": [
+        "Supabase (free tier, PostgreSQL)",
+        "PlanetScale (free tier, MySQL)"
+      ]
+    },
+    {
+      "step": 4,
+      "title": "Vercel Project Setup",
+      "tasks": [
+        "⚠️ Import GitHub repository to Vercel",
+        "⚠️ Set Framework Preset: Next.js",
+        "⚠️ Set Build Command: npm run build",
+        "⚠️ Set Output Directory: .vercel/output",
+        "⚠️ Add all environment variables",
+        "⚠️ Deploy project"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "step": 5,
+      "title": "Post-Deployment",
+      "tasks": [
+        "⚠️ Update NEXT_PUBLIC_APP_URL with actual Vercel URL",
+        "⚠️ Update NEXTAUTH_URL with actual Vercel URL",
+        "⚠️ Test all pages",
+        "⚠️ Test contact form",
+        "⚠️ Test newsletter signup",
+        "⚠️ Verify email sending",
+        "⚠️ Check mobile responsiveness",
+        "⚠️ Run Lighthouse audit"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "step": 6,
+      "title": "Optional Enhancements",
+      "tasks": [
+        "☐ Set up custom domain",
+        "☐ Configure Cloudinary for images",
+        "☐ Add Google Analytics",
+        "☐ Set up Sentry error tracking",
+        "☐ Enable Vercel Analytics",
+        "☐ Configure GitHub OAuth (admin login)"
+      ],
+      "status": "OPTIONAL"
+    }
+  ],
+  "critical_environment_variables": {
+    "required": [
+      "DATABASE_URL or POSTGRES_PRISMA_URL",
+      "NODE_ENV=production",
+      "NEXT_PUBLIC_APP_URL",
+      "NEWSLETTER_SECRET",
+      "NEXTAUTH_SECRET",
+      "SESSION_SECRET"
+    ],
+    "recommended": [
+      "SMTP_HOST",
+      "SMTP_PORT",
+      "SMTP_USER",
+      "SMTP_PASS",
+      "SMTP_FROM",
+      "ADMIN_EMAIL",
+      "NEXTAUTH_URL"
+    ],
+    "optional": [
+      "CLOUDINARY_CLOUD_NAME",
+      "CLOUDINARY_API_KEY",
+      "CLOUDINARY_API_SECRET",
+      "NEXT_PUBLIC_GA_MEASUREMENT_ID",
+      "SENTRY_DSN"
+    ]
+  },
+  "vercel_form_fields": {
+    "project_name": "ear-lab (or your preferred name)",
+    "framework": "Next.js",
+    "root_directory": "./",
+    "build_command": "npm run build (override: ON)",
+    "output_directory": ".vercel/output (override: ON)",
+    "install_command": "npm install (optional)"
+  },
+  "helpful_commands": {
+    "test_build": "npm run build",
+    "generate_secrets": "node -e \"console.log(require('crypto').randomBytes(32).toString('base64'))\"",
+    "prisma_generate": "npx prisma generate",
+    "prisma_migrate": "npx prisma migrate deploy",
+    "prisma_push": "npx prisma db push"
+  },
+  "documentation": {
+    "deployment_guide": "VERCEL_DEPLOYMENT_GUIDE.md",
+    "environment_template": ".env.production",
+    "vercel_config": "vercel.json",
+    "readme": "README.md"
+  }
+}
