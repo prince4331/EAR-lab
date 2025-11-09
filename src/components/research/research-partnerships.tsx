@@ -18,7 +18,7 @@ const partnershipOpportunities = [
     title: 'Joint Research Projects',
     description: 'Collaborate with us on cutting-edge research projects in autonomous systems, sensor fusion, and embedded AI.',
     icon: Handshake,
-    color: 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-300',
+    color: 'text-secondary',
     type: 'academic',
     benefits: [
       'Access to cutting-edge research facilities',
@@ -33,7 +33,7 @@ const partnershipOpportunities = [
     title: 'Industry Sponsorship',
     description: 'Sponsor our research initiatives and gain early access to breakthrough technologies and talent.',
     icon: Building,
-    color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300',
+    color: 'text-primary',
     type: 'industry',
     benefits: [
       'First access to research outcomes',
@@ -48,7 +48,7 @@ const partnershipOpportunities = [
     title: 'Technology Transfer',
     description: 'License our patented technologies and research outcomes for commercial applications.',
     icon: Target,
-    color: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300',
+    color: 'text-success',
     type: 'commercial',
     benefits: [
       'Ready-to-use intellectual property',
@@ -63,7 +63,7 @@ const partnershipOpportunities = [
     title: 'Talent Partnership',
     description: 'Partner with us to access top robotics talent and collaborative research opportunities.',
     icon: Users,
-    color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-300',
+    color: 'text-chart-4',
     type: 'academic',
     benefits: [
       'Access to skilled researchers and engineers',
@@ -104,42 +104,43 @@ const currentPartners = [
 
 export function ResearchPartnerships() {
   return (
-    <section id="partnerships" className="py-20 bg-background">
-      <div className="container px-4">
+    <section id="partnerships" className="relative overflow-hidden py-24 text-white">
+      <div className="absolute inset-0 bg-gradient-to-b from-[#020308] via-[#050f21] to-[#03050c]" />
+      <div className="container relative z-10 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <p className="text-sm uppercase tracking-[0.4em] text-white/60 mb-4">Partnerships</p>
+            <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 text-white">
               Partnership Opportunities
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              We believe in the power of collaboration. Partner with us to advance robotics research 
-              and bring innovative technologies to market.
+            <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
+              Partner with us to advance robotics research and bring innovative technologies to market.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             {partnershipOpportunities.map((opportunity) => (
-              <Card key={opportunity.id} className="group hover:shadow-lg transition-all duration-300">
+              <Card key={opportunity.id} className="group glass-card border border-white/15 bg-white/5 text-white">
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-4 mb-3">
-                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${opportunity.color}`}>
+                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center bg-white/10 border border-white/20 ${opportunity.color}`}>
                       <opportunity.icon className="w-6 h-6" />
                     </div>
                     <div className="flex-1">
-                      <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                      <CardTitle className="font-heading text-xl group-hover:text-cyber-teal transition-colors">
                         {opportunity.title}
                       </CardTitle>
                       <div className="flex items-center gap-2 mt-1">
-                        <Badge variant={opportunity.status === 'open' ? 'default' : 'secondary'}>
+                        <Badge className="bg-white/15 text-white">
                           {opportunity.status === 'open' ? 'Accepting Proposals' : opportunity.status === 'available' ? 'Available' : 'Closed'}
                         </Badge>
-                        <Badge variant="outline" className="text-xs">
+                        <Badge variant="outline" className="text-xs border-white/30 text-white/80">
                           {opportunity.type}
                         </Badge>
                       </div>
                     </div>
                   </div>
-                  <CardDescription className="text-base leading-relaxed">
+                  <CardDescription className="text-base leading-relaxed text-white/70">
                     {opportunity.description}
                   </CardDescription>
                 </CardHeader>
@@ -147,19 +148,19 @@ export function ResearchPartnerships() {
                 <CardContent className="pt-0">
                   <div className="space-y-4">
                     <div>
-                      <h4 className="font-semibold mb-3">Benefits</h4>
+                      <h4 className="font-heading font-semibold mb-3 text-white">Benefits</h4>
                       <ul className="space-y-2">
                         {opportunity.benefits.map((benefit, index) => (
-                          <li key={index} className="flex items-start gap-2 text-sm">
-                            <div className="w-2 h-2 bg-primary rounded-full mt-2"></div>
+                          <li key={index} className="flex items-start gap-2 text-sm text-white/70">
+                            <div className="w-2 h-2 bg-electric-blue rounded-full mt-2"></div>
                             <span>{benefit}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
-                    <div className="pt-4 border-t">
-                      <Button className="w-full" asChild>
+                    <div className="pt-4 border-t border-white/15">
+                      <Button className="w-full bg-gradient-to-r from-[#0f82fe] to-[#00c2a8] btn-glow" asChild>
                         <a href={`/contact?partnership=${opportunity.id}`}>
                           Propose {opportunity.type === 'academic' ? 'Collaboration' : 'Partnership'}
                           <ArrowRight className="ml-2 h-4 w-4" />
@@ -175,10 +176,10 @@ export function ResearchPartnerships() {
           {/* Current Partners */}
           <div className="mt-16">
             <div className="text-center mb-12">
-              <h3 className="text-2xl font-bold mb-4">
+              <h3 className="font-heading text-3xl font-bold mb-4 text-white">
                 Current Research Partners
               </h3>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-lg text-white/70 max-w-2xl mx-auto">
                 We're proud to collaborate with leading academic institutions and industry partners 
                 to advance robotics research and innovation.
               </p>
@@ -186,42 +187,41 @@ export function ResearchPartnerships() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {currentPartners.map((partner, index) => (
-                <div key={index} className="text-center p-6 bg-muted/30 rounded-lg">
-                  <div className="w-16 h-16 bg-background rounded-lg flex items-center justify-center mx-auto mb-3">
+                <Card key={index} className="text-center p-6 glass-card border border-white/15 bg-white/5 text-white">
+                  <div className="w-16 h-16 bg-white/10 border border-white/20 rounded-lg flex items-center justify-center mx-auto mb-3">
                     {partner.type === 'academic' ? (
-                      <University className="w-8 h-8 text-primary" />
+                      <University className="w-8 h-8 text-white" />
                     ) : (
-                      <Factory className="w-8 h-8 text-primary" />
+                      <Factory className="w-8 h-8 text-white" />
                     )}
                   </div>
-                  <h4 className="font-semibold text-sm">{partner.name}</h4>
-                  <Badge variant="outline" className="text-xs mb-2">
+                  <h4 className="font-heading font-semibold text-sm">{partner.name}</h4>
+                  <Badge variant="outline" className="text-xs mb-2 border-white/30 text-white/80">
                     {partner.type}
                   </Badge>
-                  <p className="text-xs text-muted-foreground">{partner.description}</p>
-                </div>
+                  <p className="text-xs text-white/70">{partner.description}</p>
+                </Card>
               ))}
             </div>
           </div>
 
-          {/* CTA */}
           <div className="mt-16 text-center">
-            <div className="bg-muted/30 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold mb-4">
+            <div className="glass-card border border-white/15 bg-white/5 rounded-2xl p-8">
+              <h3 className="font-heading text-3xl font-bold mb-4 text-white">
                 Ready to Collaborate?
               </h3>
-              <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
+              <p className="text-lg text-white/70 mb-6 max-w-2xl mx-auto">
                 Whether you're interested in joint research, technology licensing, or talent partnership, 
                 we're excited to explore how we can work together.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" asChild>
+                <Button size="lg" className="px-10 py-6 bg-gradient-to-r from-[#0f82fe] to-[#00c2a8] btn-glow" asChild>
                   <a href="/contact?partnership=general">
                     Discuss Partnership
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </a>
                 </Button>
-                <Button variant="outline" size="lg" asChild>
+                <Button variant="outline" size="lg" className="text-white border-white/40 hover:bg-white/10" asChild>
                   <a href="/research#research-areas">
                     Explore Research Areas
                   </a>

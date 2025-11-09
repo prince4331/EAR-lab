@@ -3,7 +3,7 @@
  * Handles all email sending operations using Mailgun/SendGrid
  */
 
-import nodemailer, { Transporter } from 'nodemailer';
+import nodemailer, { Transporter, SentMessageInfo, SendMailOptions } from 'nodemailer';
 
 export interface EmailOptions {
   to: string | string[];
@@ -25,7 +25,7 @@ export interface EmailTemplate {
   text?: string;
 }
 
-class EmailService {
+export class EmailService {
   private transporter: Transporter | null = null;
   private defaultFrom: string;
 
@@ -41,7 +41,7 @@ class EmailService {
     const smtpPass = process.env.SMTP_PASS;
 
     if (!smtpHost || !smtpUser || !smtpPass) {
-      console.warn('⚠️ SMTP credentials not configured. Email service will not work.');
+      console.warn('SMTP credentials not configured. Email service will not work.');
       return;
     }
 
@@ -56,39 +56,51 @@ class EmailService {
         },
       });
 
-      console.log('✅ Email service initialized successfully');
+      console.log('Email service initialized successfully');
     } catch (error) {
-      console.error('❌ Failed to initialize email service:', error);
+      console.error('Failed to initialize email service:', error);
     }
   }
 
   /**
    * Send email
    */
-  async sendEmail(options: EmailOptions): Promise<boolean> {
+  async sendEmail(options: EmailOptions): Promise<SentMessageInfo> {
     if (!this.transporter) {
-      console.error('❌ Email transporter not initialized');
-      return false;
+      throw new Error('Email transporter not initialized');
     }
 
     try {
-      const info = await this.transporter.sendMail({
+      const mailOptions: SendMailOptions = {
         from: options.from || this.defaultFrom,
         to: Array.isArray(options.to) ? options.to.join(', ') : options.to,
         subject: options.subject,
         html: options.html,
-        text: options.text || this.stripHtml(options.html),
-        replyTo: options.replyTo,
-        attachments: options.attachments,
-      });
+      };
 
-      console.log('✅ Email sent successfully:', info.messageId);
-      return true;
+      const textContent = options.text;
+      if (textContent) {
+        mailOptions.text = textContent;
+      }
+
+      if (options.replyTo) {
+        mailOptions.replyTo = options.replyTo;
+      }
+
+      if (options.attachments?.length) {
+        mailOptions.attachments = options.attachments;
+      }
+
+      const info = await this.transporter.sendMail(mailOptions);
+
+      console.log('Email sent successfully:', info.messageId);
+      return info;
     } catch (error) {
-      console.error('❌ Failed to send email:', error);
-      return false;
+      console.error('Failed to send email:', error);
+      throw error;
     }
   }
+
 
   /**
    * Send contact form notification to admin
@@ -97,10 +109,11 @@ class EmailService {
     name: string;
     email: string;
     company?: string;
+    subject?: string;
     message: string;
     budgetRange?: string;
     timeline?: string;
-  }): Promise<boolean> {
+  }): Promise<SentMessageInfo> {
     const template = this.getContactNotificationTemplate(contact);
     
     return this.sendEmail({
@@ -114,14 +127,18 @@ class EmailService {
   /**
    * Send contact confirmation to user
    */
-  async sendContactConfirmation(contact: {
-    name: string;
-    email: string;
-  }): Promise<boolean> {
-    const template = this.getContactConfirmationTemplate(contact);
+  async sendContactConfirmation(
+    contact: { name: string; email: string } | string,
+    name?: string
+  ): Promise<SentMessageInfo> {
+    const payload = typeof contact === 'string'
+      ? { email: contact, name: name || 'there' }
+      : contact;
+
+    const template = this.getContactConfirmationTemplate(payload);
     
     return this.sendEmail({
-      to: contact.email,
+      to: payload.email,
       subject: template.subject,
       html: template.html,
     });
@@ -130,15 +147,23 @@ class EmailService {
   /**
    * Send newsletter verification email
    */
-  async sendNewsletterVerification(subscriber: {
-    email: string;
-    name?: string;
-    verificationToken: string;
-  }): Promise<boolean> {
-    const template = this.getNewsletterVerificationTemplate(subscriber);
+  async sendNewsletterVerification(
+    subscriber: { email: string; name?: string; verificationToken: string } | string,
+    verificationToken?: string,
+    name?: string
+  ): Promise<SentMessageInfo> {
+    const payload = typeof subscriber === 'string'
+      ? { email: subscriber, verificationToken: verificationToken || '', name }
+      : subscriber;
+
+    if (!payload.verificationToken) {
+      throw new Error('Verification token is required');
+    }
+
+    const template = this.getNewsletterVerificationTemplate(payload);
     
     return this.sendEmail({
-      to: subscriber.email,
+      to: payload.email,
       subject: template.subject,
       html: template.html,
     });
@@ -147,14 +172,18 @@ class EmailService {
   /**
    * Send newsletter welcome email
    */
-  async sendNewsletterWelcome(subscriber: {
-    email: string;
-    name?: string;
-  }): Promise<boolean> {
-    const template = this.getNewsletterWelcomeTemplate(subscriber);
+  async sendNewsletterWelcome(
+    subscriber: { email: string; name?: string } | string,
+    name?: string
+  ): Promise<SentMessageInfo> {
+    const payload = typeof subscriber === 'string'
+      ? { email: subscriber, name }
+      : subscriber;
+
+    const template = this.getNewsletterWelcomeTemplate(payload);
     
     return this.sendEmail({
-      to: subscriber.email,
+      to: payload.email,
       subject: template.subject,
       html: template.html,
     });
@@ -174,7 +203,7 @@ class EmailService {
         imageUrl?: string;
       }>;
     }
-  ): Promise<boolean> {
+  ): Promise<SentMessageInfo> {
     const template = this.getNewsletterDigestTemplate(subscriber, content);
     
     return this.sendEmail({
@@ -192,6 +221,7 @@ class EmailService {
     name: string;
     email: string;
     company?: string;
+    subject?: string;
     message: string;
     budgetRange?: string;
     timeline?: string;
@@ -219,6 +249,12 @@ class EmailService {
                 <h1 style="margin: 0;">🤝 New Contact Form Submission</h1>
               </div>
               <div class="content">
+                ${contact.subject ? `
+                <div class="field">
+                  <div class="field-label">Subject:</div>
+                  <div class="field-value">${contact.subject}</div>
+                </div>
+                ` : ''}
                 <div class="field">
                   <div class="field-label">Name:</div>
                   <div class="field-value">${contact.name}</div>
@@ -263,7 +299,7 @@ class EmailService {
     email: string;
   }): EmailTemplate {
     return {
-      subject: 'Thanks for contacting EAR Lab',
+      subject: 'EAR Lab received your message',
       html: `
         <!DOCTYPE html>
         <html>
@@ -324,7 +360,7 @@ class EmailService {
     const verificationUrl = `${process.env.NEXT_PUBLIC_APP_URL}/api/newsletter/verify?token=${subscriber.verificationToken}`;
     
     return {
-      subject: 'Please verify your email for EAR Lab Newsletter',
+      subject: 'Confirm your email for EAR Lab Newsletter',
       html: `
         <!DOCTYPE html>
         <html>
@@ -522,3 +558,9 @@ class EmailService {
 
 // Export singleton instance
 export const emailService = new EmailService();
+
+
+
+
+
+

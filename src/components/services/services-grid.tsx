@@ -30,7 +30,7 @@ const services = [
     timeline: '2-6 weeks',
     costBand: '$10K - $25K',
     teamSize: '2-3 experts',
-    color: 'bg-purple-100 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400'
+    color: 'text-secondary'
   },
   {
     id: 'embedded',
@@ -47,7 +47,7 @@ const services = [
     timeline: '8-16 weeks',
     costBand: '$25K - $75K',
     teamSize: '2-4 engineers',
-    color: 'bg-blue-100 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400'
+    color: 'text-primary'
   },
   {
     id: 'autonomy',
@@ -64,7 +64,7 @@ const services = [
     timeline: '12-24 weeks',
     costBand: '$50K - $150K',
     teamSize: '3-5 specialists',
-    color: 'bg-green-100 text-green-600 dark:bg-green-900/20 dark:text-green-400'
+    color: 'text-success'
   },
   {
     id: 'sensors',
@@ -81,7 +81,7 @@ const services = [
     timeline: '6-12 weeks',
     costBand: '$20K - $60K',
     teamSize: '2-3 engineers',
-    color: 'bg-yellow-100 text-yellow-600 dark:bg-yellow-900/20 dark:text-yellow-400'
+    color: 'text-chart-4'
   },
   {
     id: 'power',
@@ -98,7 +98,7 @@ const services = [
     timeline: '8-16 weeks',
     costBand: '$25K - $70K',
     teamSize: '2-4 engineers',
-    color: 'bg-red-100 text-red-600 dark:bg-red-900/20 dark:text-red-400'
+    color: 'text-destructive'
   },
   {
     id: 'testing',
@@ -115,7 +115,7 @@ const services = [
     timeline: '4-10 weeks',
     costBand: '$15K - $45K',
     teamSize: '2-3 test engineers',
-    color: 'bg-indigo-100 text-indigo-600 dark:bg-indigo-900/20 dark:text-indigo-400'
+    color: 'text-chart-3'
   },
   {
     id: 'ui',
@@ -132,7 +132,7 @@ const services = [
     timeline: '6-14 weeks',
     costBand: '$20K - $55K',
     teamSize: '2-3 developers',
-    color: 'bg-pink-100 text-pink-600 dark:bg-pink-900/20 dark:text-pink-400'
+    color: 'text-primary'
   },
   {
     id: 'mentoring',
@@ -149,79 +149,83 @@ const services = [
     timeline: 'Ongoing',
     costBand: '$5K - $15K/month',
     teamSize: '1-2 mentors',
-    color: 'bg-teal-100 text-teal-600 dark:bg-teal-900/20 dark:text-teal-400'
+    color: 'text-secondary'
   }
 ]
 
 export function ServicesGrid() {
   return (
-    <section className="py-20 bg-background">
-      <div className="container px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Comprehensive Service Offerings
+    <section className="relative py-24 text-white">
+      <div className="absolute inset-0 bg-gradient-to-b from-[#03050a] via-[#060d18] to-[#05070c]" />
+      <div className="container relative z-10 px-4">
+        <div className="text-center mb-16 max-w-3xl mx-auto">
+          <p className="text-sm uppercase tracking-[0.35em] text-white/60 mb-3">Engagements</p>
+          <h2 className="font-heading text-4xl md:text-5xl font-semibold text-white text-balance">
+            Comprehensive service offerings
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            From initial research to production deployment, we provide the expertise and resources you need at every stage.
+          <p className="text-xl text-white/70 text-balance">
+            From initial research to production deployment, we provide accountable teams calibrated to your mission goals.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {services.map((service) => (
-            <Card key={service.id} className="group hover:shadow-lg transition-all duration-300" id={service.id}>
+            <Card
+              key={service.id}
+              id={service.id}
+              className="group h-full border border-border/60 bg-card/70 glass-card lift-hover text-white"
+            >
               <CardHeader className="pb-4">
-                <div className={`w-16 h-16 rounded-xl flex items-center justify-center mb-4 ${service.color}`}>
+                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-5 bg-deep-black/60 border border-border ${service.color}`}>
                   <service.icon className="w-8 h-8" />
                 </div>
-                <CardTitle className="text-2xl group-hover:text-primary transition-colors">
+                <CardTitle className="font-heading text-2xl text-white group-hover:text-electric-blue transition-colors line-clamp-2 text-balance">
                   {service.title}
                 </CardTitle>
-                <CardDescription className="text-base leading-relaxed">
+                <CardDescription className="text-base leading-relaxed text-white/75 text-balance">
                   {service.description}
                 </CardDescription>
               </CardHeader>
 
               <CardContent className="space-y-6">
-                {/* Deliverables */}
                 <div>
-                  <h4 className="font-semibold mb-3">Key Deliverables</h4>
+                  <h4 className="font-heading font-semibold mb-3 text-white">Key deliverables</h4>
                   <ul className="space-y-2">
                     {service.deliverables.map((deliverable, index) => (
                       <li key={index} className="flex items-start gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"></div>
-                        <span className="text-sm text-muted-foreground">{deliverable}</span>
+                        <div className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-electric-blue"></div>
+                        <span className="text-sm text-white/70">{deliverable}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                {/* Meta Information */}
-                <div className="grid grid-cols-3 gap-4 pt-4 border-t">
-                  <div className="text-center">
-                    <div className="flex items-center justify-center gap-1 text-muted-foreground mb-1">
-                      <Clock className="w-3 h-3" />
+                <div className="grid grid-cols-3 gap-4 rounded-2xl border border-white/20 bg-white/5 p-4 text-center text-xs font-medium text-white/80">
+                  <div>
+                    <div className="text-white/60 mb-1 flex items-center justify-center">
+                      <Clock className="w-3 h-3 text-white/70" />
                     </div>
-                    <div className="text-xs font-medium">{service.timeline}</div>
+                    {service.timeline}
                   </div>
-                  <div className="text-center">
-                    <div className="flex items-center justify-center gap-1 text-muted-foreground mb-1">
-                      <DollarSign className="w-3 h-3" />
+                  <div>
+                    <div className="text-white/60 mb-1 flex items-center justify-center">
+                      <DollarSign className="w-3 h-3 text-white/70" />
                     </div>
-                    <div className="text-xs font-medium">{service.costBand}</div>
+                    {service.costBand}
                   </div>
-                  <div className="text-center">
-                    <div className="flex items-center justify-center gap-1 text-muted-foreground mb-1">
-                      <Users className="w-3 h-3" />
+                  <div>
+                    <div className="text-white/60 mb-1 flex items-center justify-center">
+                      <Users className="w-3 h-3 text-white/70" />
                     </div>
-                    <div className="text-xs font-medium">{service.teamSize}</div>
+                    {service.teamSize}
                   </div>
                 </div>
 
-                {/* CTA */}
-                <Button className="w-full" asChild>
-                  <a href={`/contact?service=${service.id}`}>
-                    Request Proposal for {service.title}
+                <Button className="w-full btn-hover-gradient btn-glow" asChild>
+                  <a href={`/contact?service=${service.id}`} aria-label={`Request a proposal for ${service.title}`}>
+                    Request proposal
                     <ArrowRight className="ml-2 h-4 w-4" />
+                    <span className="sr-only">{service.title}</span>
                   </a>
                 </Button>
               </CardContent>

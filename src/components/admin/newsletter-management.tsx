@@ -119,8 +119,8 @@ export function NewsletterManagement() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Newsletter Subscribers</h2>
-          <p className="text-gray-600 dark:text-gray-400">
+          <h2 className="text-2xl font-bold text-white">Newsletter Subscribers</h2>
+          <p className="text-white/70">
             Manage your newsletter subscriber list
           </p>
         </div>
@@ -131,34 +131,34 @@ export function NewsletterManagement() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
+        <Card className="admin-card border-white/10">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+            <CardTitle className="text-sm font-medium text-white/70">
               Total Subscribers
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-gray-900 dark:text-white">{subscribers.length}</div>
+            <div className="text-3xl font-bold text-white">{subscribers.length}</div>
           </CardContent>
         </Card>
-        <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
+        <Card className="admin-card border-white/10">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+            <CardTitle className="text-sm font-medium text-white/70">
               Verified
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-green-600">{verifiedCount}</div>
+            <div className="text-3xl font-bold text-cyber-teal">{verifiedCount}</div>
           </CardContent>
         </Card>
-        <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
+        <Card className="admin-card border-white/10">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+            <CardTitle className="text-sm font-medium text-white/70">
               Unverified
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-orange-600">
+            <div className="text-3xl font-bold text-red-neon">
               {subscribers.length - verifiedCount}
             </div>
           </CardContent>
@@ -166,7 +166,7 @@ export function NewsletterManagement() {
       </div>
 
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60 w-4 h-4" />
         <Input
           placeholder="Search subscribers..."
           value={searchTerm}
@@ -175,22 +175,22 @@ export function NewsletterManagement() {
         />
       </div>
 
-      <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
+      <Card className="admin-card border-white/10">
         <CardHeader>
-          <CardTitle className="text-gray-900 dark:text-white">All Subscribers ({filteredSubscribers.length})</CardTitle>
+          <CardTitle className="text-white">All Subscribers ({filteredSubscribers.length})</CardTitle>
         </CardHeader>
         <CardContent>
           {loading ? (
             <div className="space-y-4">
               {[...Array(3)].map((_, i) => (
-                <div key={i} className="animate-pulse border border-gray-200 dark:border-gray-800 rounded-lg p-4">
-                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                <div key={i} className="animate-pulse rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <div className="h-6 w-3/4 rounded-full bg-white/15 mb-2" />
+                  <div className="h-4 w-1/2 rounded-full bg-white/10" />
                 </div>
               ))}
             </div>
           ) : filteredSubscribers.length === 0 ? (
-            <p className="text-gray-600 dark:text-gray-400 text-center py-8">
+            <p className="text-white/70 text-center py-8">
               {searchTerm ? 'No subscribers found matching your search' : 'No newsletter subscribers yet'}
             </p>
           ) : (
@@ -198,20 +198,20 @@ export function NewsletterManagement() {
               {filteredSubscribers.map((subscriber) => (
                 <div
                   key={subscriber.id}
-                  className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                  className="rounded-2xl border border-white/12 bg-white/5 p-5 backdrop-blur-xl transition hover:border-electric-blue/40"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
-                        <Mail className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                        <span className="font-medium truncate text-gray-900 dark:text-white">{subscriber.email}</span>
+                        <Mail className="w-4 h-4 text-white/60 flex-shrink-0" />
+                        <span className="font-medium truncate text-white">{subscriber.email}</span>
                         {subscriber.isVerified ? (
-                          <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
+                          <CheckCircle className="w-4 h-4 text-cyber-teal flex-shrink-0" />
                         ) : (
-                          <XCircle className="w-4 h-4 text-orange-600 flex-shrink-0" />
+                          <XCircle className="w-4 h-4 text-red-neon flex-shrink-0" />
                         )}
                       </div>
-                      <div className="flex flex-wrap items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                      <div className="flex flex-wrap items-center gap-2 text-sm text-white/70">
                         {subscriber.name && <span>{subscriber.name}</span>}
                         {subscriber.role && (
                           <>
@@ -250,3 +250,4 @@ export function NewsletterManagement() {
     </div>
   )
 }
+

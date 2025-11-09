@@ -19,7 +19,7 @@ const researchAreas = [
     title: 'Autonomous Navigation',
     description: 'Developing cutting-edge algorithms for robot navigation, path planning, and obstacle avoidance in complex environments.',
     icon: Brain,
-    color: 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-300',
+    color: 'text-secondary',
     projects: [
       'SLAM in Dynamic Environments',
       'Multi-robot Coordination',
@@ -34,7 +34,7 @@ const researchAreas = [
     title: 'Perception & Sensing',
     description: 'Advanced sensor fusion, computer vision, and environmental understanding for robust robot perception.',
     icon: Eye,
-    color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300',
+    color: 'text-primary',
     projects: [
       'Multi-sensor Fusion',
       'Object Detection & Tracking',
@@ -49,7 +49,7 @@ const researchAreas = [
     title: 'Embedded Systems',
     description: 'High-performance embedded controllers, real-time operating systems, and optimized firmware for robotics applications.',
     icon: Cpu,
-    color: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300',
+    color: 'text-success',
     projects: [
       'Real-time Control Systems',
       'Low-power Design',
@@ -64,7 +64,7 @@ const researchAreas = [
     title: 'Power & Energy',
     description: 'Innovative battery management systems, energy harvesting, and power optimization for mobile robotics.',
     icon: Battery,
-    color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-300',
+    color: 'text-chart-4',
     projects: [
       'Smart BMS Development',
       'Wireless Power Transfer',
@@ -79,7 +79,7 @@ const researchAreas = [
     title: 'Testing & Validation',
     description: 'Comprehensive testing frameworks, simulation environments, and validation methodologies for robotics systems.',
     icon: TestTube,
-    color: 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-300',
+    color: 'text-destructive',
     projects: [
       'Hardware-in-the-loop Testing',
       'Digital Twin Development',
@@ -93,97 +93,95 @@ const researchAreas = [
 
 export function ResearchAreas() {
   return (
-    <section id="research-areas" className="py-20 bg-background">
-      <div className="container px-4">
+    <section id="research-areas" className="relative overflow-hidden py-24 text-white">
+      <div className="absolute inset-0 bg-gradient-to-b from-[#03050b] via-[#07122b] to-[#02040a]" />
+      <div className="container relative z-10 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <p className="text-sm uppercase tracking-[0.4em] text-white/60 mb-4">Domains</p>
+            <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 text-white text-balance">
               Research Areas
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Our research spans multiple domains, from fundamental algorithms to practical applications. 
-              Each area focuses on solving specific challenges in modern robotics.
+            <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed text-balance">
+              Our programs span fundamental algorithms through production-ready implementations. Each cell below outlines the missions currently in flight.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {researchAreas.map((area) => (
-              <Card key={area.id} className="group hover:shadow-lg transition-all duration-300">
+              <Card key={area.id} className="group glass-card border border-white/15 bg-white/5 text-white">
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-4 mb-3">
-                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${area.color}`}>
+                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center bg-white/10 border border-white/20 ${area.color}`}>
                       <area.icon className="w-6 h-6" />
                     </div>
                     <div className="flex-1">
-                      <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                      <CardTitle className="font-heading text-xl group-hover:text-cyber-teal transition-colors line-clamp-2 text-balance">
                         {area.title}
                       </CardTitle>
                       <div className="flex items-center gap-2 mt-1">
-                        <Badge variant={area.status === 'active' ? 'default' : 'secondary'}>
+                        <Badge className={area.status === 'active' ? 'bg-white/15 text-white' : 'bg-white/5 text-white/70'}>
                           {area.status === 'active' ? 'Active' : 'Planning'}
                         </Badge>
-                        <Badge variant="outline" className="text-xs">
+                        <Badge variant="outline" className="text-xs border-white/30 text-white/80">
                           {area.publications} publications
                         </Badge>
                       </div>
                     </div>
                   </div>
-                  <CardDescription className="text-base leading-relaxed">
+                  <CardDescription className="text-base leading-relaxed text-white/70 text-balance">
                     {area.description}
                   </CardDescription>
                 </CardHeader>
 
-                <CardContent className="pt-0">
-                  <div className="space-y-4">
-                    <div>
-                      <h4 className="font-semibold mb-3 flex items-center gap-2">
-                        <Calendar className="w-4 h-4" />
-                        Current Projects
-                      </h4>
-                      <ul className="space-y-2">
-                        {area.projects.map((project, index) => (
-                          <li key={index} className="flex items-center gap-2 text-sm">
-                            <div className="w-2 h-2 bg-primary rounded-full"></div>
-                            <span>{project}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                <CardContent className="pt-0 space-y-4">
+                  <div>
+                    <h4 className="font-heading font-semibold mb-3 flex items-center gap-2 text-white">
+                      <Calendar className="w-4 h-4 text-cyber-teal" />
+                      Current Projects
+                    </h4>
+                    <ul className="space-y-2">
+                      {area.projects.map((project, index) => (
+                        <li key={index} className="flex items-center gap-2 text-sm text-white/70">
+                          <div className="w-2 h-2 bg-electric-blue rounded-full" />
+                          <span>{project}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-                    <div className="pt-4 border-t">
-                      <Button variant="outline" className="w-full" asChild>
-                        <a href={`/contact?research=${area.id}`}>
-                          Learn More About {area.title}
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </a>
-                      </Button>
-                    </div>
+                  <div className="pt-4 border-t border-white/15">
+                    <Button variant="outline" className="w-full text-white border-white/40 hover:bg-white/10" asChild>
+                      <a href={`/contact?research=${area.id}`} aria-label={`Start a research conversation about ${area.title}`}>
+                        Learn more
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </a>
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
 
-          {/* Research Impact */}
           <div className="mt-16 text-center">
-            <div className="bg-muted/30 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold mb-4">Research Impact</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
+            <div className="glass-card border border-white/15 bg-white/5 rounded-2xl p-8">
+              <h3 className="font-heading text-3xl font-bold mb-4 text-white">Research Impact</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-sm text-white/70">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-primary mb-1">50+</div>
-                  <div className="text-muted-foreground">Citations</div>
+                  <div className="font-heading text-3xl font-bold text-white mb-1">50+</div>
+                  <div className="uppercase tracking-wider">Citations</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-primary mb-1">15</div>
-                  <div className="text-muted-foreground">Industry Partners</div>
+                  <div className="font-heading text-3xl font-bold text-white mb-1">15</div>
+                  <div className="uppercase tracking-wider">Industry Partners</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-primary mb-1">8</div>
-                  <div className="text-muted-foreground">Open Source Projects</div>
+                  <div className="font-heading text-3xl font-bold text-white mb-1">8</div>
+                  <div className="uppercase tracking-wider">Open Source Projects</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-primary mb-1">3</div>
-                  <div className="text-muted-foreground">Patents Filed</div>
+                  <div className="font-heading text-3xl font-bold text-white mb-1">3</div>
+                  <div className="uppercase tracking-wider">Patents Filed</div>
                 </div>
               </div>
             </div>

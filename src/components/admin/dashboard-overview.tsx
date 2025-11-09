@@ -114,9 +114,9 @@ export function DashboardOverview() {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {statCards.map((stat) => (
-          <Card key={stat.title} className="bg-white dark:bg-gray-900">
+          <Card key={stat.title} className="admin-card">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-gray-900 dark:text-gray-100">
+              <CardTitle className="text-sm font-medium text-white dark:text-gray-100">
                 {stat.title}
               </CardTitle>
               <div className={`${stat.bgColor} p-2 rounded-lg`}>
@@ -124,8 +124,8 @@ export function DashboardOverview() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-gray-900 dark:text-white">{stat.value}</div>
-              <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+              <div className="text-3xl font-bold text-white">{stat.value}</div>
+              <p className="text-xs text-white/70 mt-1">
                 {stat.subtitle}
               </p>
             </CardContent>
@@ -134,13 +134,13 @@ export function DashboardOverview() {
       </div>
 
       {/* Recent Activity */}
-      <Card className="bg-white dark:bg-gray-900">
+      <Card className="admin-card">
         <CardHeader>
-          <CardTitle className="text-gray-900 dark:text-white">Recent Activity</CardTitle>
+          <CardTitle className="text-white">Recent Activity</CardTitle>
         </CardHeader>
         <CardContent>
           {!stats || stats.recentActivity.length === 0 ? (
-            <p className="text-gray-600 dark:text-gray-400 text-center py-8">No recent activity</p>
+            <p className="text-white/70 text-center py-8">No recent activity</p>
           ) : (
             <div className="space-y-4">
               {stats.recentActivity.map((activity: any) => (
@@ -154,8 +154,8 @@ export function DashboardOverview() {
                     'bg-blue-500'
                   }`}></div>
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-900 dark:text-white">{activity.description}</p>
-                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                    <p className="text-sm font-medium text-white">{activity.description}</p>
+                    <p className="text-xs text-white/70 mt-1">
                       {formatTimestamp(activity.timestamp)}
                     </p>
                   </div>
@@ -168,3 +168,4 @@ export function DashboardOverview() {
     </div>
   )
 }
+

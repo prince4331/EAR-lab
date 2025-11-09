@@ -1,39 +1,47 @@
 import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
 import { ArrowRight, Microscope, BookOpen, TrendingUp } from 'lucide-react'
 import Link from 'next/link'
 
 export function ResearchHero() {
   return (
-    <section className="relative py-20 bg-gradient-to-br from-background via-background to-muted/20">
-      <div className="container px-4">
+    <section className="relative overflow-hidden py-24 text-white">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#02050c] via-[#061432] to-[#010208]" />
+      <div
+        className="absolute inset-0 opacity-30"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 20% 20%, rgba(0,194,168,0.3), transparent 45%), radial-gradient(circle at 80% 0%, rgba(15,98,254,0.35), transparent 45%)",
+        }}
+      />
+      <div className="container relative z-10 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-8">
-            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Microscope className="w-8 h-8 text-primary" />
+            <div className="w-16 h-16 bg-white/10 border border-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <Microscope className="w-8 h-8 text-white" />
             </div>
           </div>
           
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
+          <p className="text-xs uppercase tracking-[0.4em] text-white/60 mb-4">Research</p>
+          <h1 className="font-heading text-5xl md:text-7xl font-bold tracking-tight mb-6 text-white text-balance">
             Research &{' '}
-            <span className="text-accent">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0F62FE] to-[#00C2A8]">
               Innovation
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed max-w-3xl mx-auto">
-            Pushing the boundaries of robotics technology through cutting-edge research and development. 
-            From autonomous navigation algorithms to embedded system optimization, we're solving the 
-            most challenging problems in modern robotics.
+          <p className="text-xl md:text-2xl text-white/75 mb-10 leading-relaxed max-w-3xl mx-auto text-balance">
+            Pushing the boundaries of robotics technology through field-proven research that spans autonomy, embedded compute, and intelligent sensing.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button size="lg" asChild>
+            <Button size="lg" className="px-10 py-6 font-heading bg-gradient-to-r from-[#0f82fe] to-[#00c2a8] btn-glow" asChild>
               <Link href="#publications">
                 View Our Publications
                 <BookOpen className="ml-2 h-5 w-5" />
               </Link>
             </Button>
-            <Button variant="outline" size="lg" asChild>
+            <Button variant="outline" size="lg" className="px-10 py-6 text-white border-white/40 hover:bg-white/10" asChild>
               <Link href="#partnerships">
                 Propose Joint Research
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -41,58 +49,42 @@ export function ResearchHero() {
             </Button>
           </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">12</div>
-              <div className="text-sm text-muted-foreground">Published Papers</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">8</div>
-              <div className="text-sm text-muted-foreground">Active Research Areas</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">15+</div>
-              <div className="text-sm text-muted-foreground">Industry Partners</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">3</div>
-              <div className="text-sm text-muted-foreground">Patents Filed</div>
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+            {[
+              { label: 'Published Papers', value: '12' },
+              { label: 'Active Research Areas', value: '8' },
+              { label: 'Industry Partners', value: '15+' },
+              { label: 'Patents Filed', value: '3' },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center">
+                <div className="font-heading text-4xl md:text-5xl font-bold text-white mb-2">{stat.value}</div>
+                <div className="text-sm text-white/60 uppercase tracking-wider">{stat.label}</div>
+              </div>
+            ))}
           </div>
 
-          {/* Key Research Areas Preview */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center p-6 bg-muted/30 rounded-lg">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                <TrendingUp className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-semibold mb-2">Autonomy Systems</h3>
-              <p className="text-sm text-muted-foreground">
-                Advanced navigation and perception algorithms
-              </p>
-            </div>
-            <div className="text-center p-6 bg-muted/30 rounded-lg">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                <Microscope className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-semibold mb-2">Sensor Fusion</h3>
-              <p className="text-sm text-muted-foreground">
-                Multi-sensor integration and calibration
-              </p>
-            </div>
-            <div className="text-center p-6 bg-muted/30 rounded-lg">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                <BookOpen className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-semibold mb-2">Embedded AI</h3>
-              <p className="text-sm text-muted-foreground">
-                Edge AI and embedded machine learning
-              </p>
-            </div>
+            {[
+              { title: 'Autonomy Systems', icon: TrendingUp, caption: 'Advanced navigation and perception algorithms' },
+              { title: 'Sensor Fusion', icon: Microscope, caption: 'Multi-sensor integration and calibration' },
+              { title: 'Embedded AI', icon: BookOpen, caption: 'Edge AI and embedded machine learning' },
+            ].map((item) => (
+              <Card key={item.title} className="text-center p-6 glass-card border border-white/15 bg-white/5 text-white">
+                <div className="w-12 h-12 bg-white/10 border border-white/15 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                  <item.icon className="w-6 h-6" />
+                </div>
+                <h3 className="font-heading font-semibold mb-2">{item.title}</h3>
+                <p className="text-sm text-white/70">
+                  {item.caption}
+                </p>
+              </Card>
+            ))}
           </div>
         </div>
       </div>
     </section>
   )
 }
+
+
+

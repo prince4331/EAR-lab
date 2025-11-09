@@ -7,8 +7,11 @@ import { FeaturedProjects } from '@/components/sections/featured-projects'
 import { LatestBlog } from '@/components/sections/latest-blog'
 import { TrustStrip } from '@/components/sections/trust-strip'
 import { ContactCTA } from '@/components/sections/contact-cta'
+import { getPublishedBlogPosts } from '@/lib/data/blog'
 
-export default function Home() {
+export default async function Home() {
+  const latestPosts = await getPublishedBlogPosts(3)
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -17,7 +20,7 @@ export default function Home() {
         <WhatWeDo />
         <ServicesList />
         <FeaturedProjects />
-        <LatestBlog />
+        <LatestBlog posts={latestPosts} />
         <TrustStrip />
         <ContactCTA />
       </main>

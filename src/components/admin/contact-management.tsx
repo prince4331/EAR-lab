@@ -116,11 +116,16 @@ export function ContactManagement() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'new': return 'bg-blue-100 text-blue-800'
-      case 'contacted': return 'bg-yellow-100 text-yellow-800'
-      case 'qualified': return 'bg-purple-100 text-purple-800'
-      case 'closed': return 'bg-green-100 text-green-800'
-      default: return 'bg-gray-100 text-gray-800'
+      case 'new':
+        return 'bg-electric-blue/20 text-electric-blue border border-white/10'
+      case 'contacted':
+        return 'bg-cyber-teal/20 text-cyber-teal border border-white/10'
+      case 'qualified':
+        return 'bg-purple-500/20 text-purple-200 border border-white/10'
+      case 'closed':
+        return 'bg-lime-green/20 text-lime-green border border-white/10'
+      default:
+        return 'bg-white/10 text-white/80 border border-white/10'
     }
   }
 
@@ -128,16 +133,16 @@ export function ContactManagement() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Contact Submissions</h2>
-          <p className="text-gray-600 dark:text-gray-400">
+          <h2 className="text-2xl font-bold text-white">Contact Submissions</h2>
+          <p className="text-white/70">
             View and manage contact form submissions
           </p>
         </div>
         <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-full sm:w-[180px]">
+          <SelectTrigger className="w-full sm:w-[180px] bg-white/10 border-white/20 text-white">
             <SelectValue />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="dialog-surface border-white/10">
             <SelectItem value="all">All Status</SelectItem>
             <SelectItem value="new">New</SelectItem>
             <SelectItem value="contacted">Contacted</SelectItem>
@@ -147,22 +152,22 @@ export function ContactManagement() {
         </Select>
       </div>
 
-      <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
+      <Card className="admin-card border-white/10">
         <CardHeader>
-          <CardTitle className="text-gray-900 dark:text-white">Recent Contacts ({contacts.length})</CardTitle>
+          <CardTitle className="text-white">Recent Contacts ({contacts.length})</CardTitle>
         </CardHeader>
         <CardContent>
           {loading ? (
             <div className="space-y-4">
               {[...Array(3)].map((_, i) => (
-                <div key={i} className="animate-pulse border border-gray-200 dark:border-gray-800 rounded-lg p-4">
-                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                <div key={i} className="animate-pulse rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <div className="h-6 w-3/4 rounded-full bg-white/15 mb-2" />
+                  <div className="h-4 w-1/2 rounded-full bg-white/10" />
                 </div>
               ))}
             </div>
           ) : contacts.length === 0 ? (
-            <p className="text-gray-600 dark:text-gray-400 text-center py-8">
+            <p className="text-white/70 text-center py-8">
               No contact submissions yet
             </p>
           ) : (
@@ -170,17 +175,17 @@ export function ContactManagement() {
               {contacts.map((contact) => (
                 <div
                   key={contact.id}
-                  className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                  className="rounded-2xl border border-white/12 bg-white/5 p-5 backdrop-blur-xl transition hover:border-electric-blue/40"
                 >
                   <div className="flex items-start justify-between gap-4 mb-3">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{contact.name}</h3>
+                        <h3 className="text-lg font-semibold text-white">{contact.name}</h3>
                         <Badge className={getStatusColor(contact.status)}>
                           {contact.status}
                         </Badge>
                       </div>
-                      <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                      <div className="space-y-1 text-sm text-white/70">
                         <div className="flex items-center gap-2">
                           <Mail className="w-4 h-4" />
                           <a href={`mailto:${contact.email}`} className="hover:underline">
@@ -204,10 +209,10 @@ export function ContactManagement() {
                         value={contact.status}
                         onValueChange={(value) => updateStatus(contact.id, value)}
                       >
-                        <SelectTrigger className="w-[140px]">
+                        <SelectTrigger className="w-[140px] bg-white/10 border-white/20 text-white">
                           <SelectValue />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="dialog-surface border-white/10">
                           <SelectItem value="new">New</SelectItem>
                           <SelectItem value="contacted">Contacted</SelectItem>
                           <SelectItem value="qualified">Qualified</SelectItem>
@@ -224,20 +229,20 @@ export function ContactManagement() {
                     </div>
                   </div>
                   <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
-                    <p className="text-sm font-medium mb-1 text-gray-900 dark:text-white">Project Description:</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-sm font-medium mb-1 text-white">Project Description:</p>
+                    <p className="text-sm text-white/70">
                       {contact.projectDescription}
                     </p>
                     {(contact.budgetRange || contact.timeline) && (
                       <div className="flex gap-4 mt-2 text-sm">
                         {contact.budgetRange && (
-                          <span className="text-gray-600 dark:text-gray-400">
-                            Budget: <span className="font-medium text-gray-900 dark:text-white">{contact.budgetRange}</span>
+                          <span className="text-white/70">
+                            Budget: <span className="font-medium text-white">{contact.budgetRange}</span>
                           </span>
                         )}
                         {contact.timeline && (
-                          <span className="text-gray-600 dark:text-gray-400">
-                            Timeline: <span className="font-medium text-gray-900 dark:text-white">{contact.timeline}</span>
+                          <span className="text-white/70">
+                            Timeline: <span className="font-medium text-white">{contact.timeline}</span>
                           </span>
                         )}
                       </div>
@@ -260,3 +265,5 @@ export function ContactManagement() {
     </div>
   )
 }
+
+

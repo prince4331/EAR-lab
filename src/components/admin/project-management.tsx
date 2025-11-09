@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Plus, Edit, Trash2, Eye } from 'lucide-react'
+import { Plus, Edit, Trash2 } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 
 interface Project {
@@ -79,11 +79,16 @@ export function ProjectManagement() {
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'embedded': return 'bg-blue-100 text-blue-800'
-      case 'autonomy': return 'bg-purple-100 text-purple-800'
-      case 'sensors': return 'bg-green-100 text-green-800'
-      case 'power': return 'bg-orange-100 text-orange-800'
-      default: return 'bg-gray-100 text-gray-800'
+      case 'embedded':
+        return 'bg-electric-blue/20 text-electric-blue'
+      case 'autonomy':
+        return 'bg-cyber-teal/20 text-cyber-teal'
+      case 'sensors':
+        return 'bg-lime-green/20 text-lime-green'
+      case 'power':
+        return 'bg-red-neon/20 text-red-neon'
+      default:
+        return 'bg-white/10 text-white/80'
     }
   }
 
@@ -91,36 +96,39 @@ export function ProjectManagement() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Projects</h2>
-          <p className="text-gray-600 dark:text-gray-400">
-            Manage your project portfolio
-          </p>
+          <h2 className="text-2xl font-bold text-white">Projects</h2>
+          <p className="text-white/70">Manage your project portfolio</p>
         </div>
-        <Button onClick={() => toast({
-          title: 'Coming Soon',
-          description: 'Project creation form will be available soon',
-        })}>
+        <Button
+          className="bg-gradient-to-r from-[#0f82fe] to-[#00c2a8] btn-glow"
+          onClick={() =>
+            toast({
+              title: 'Coming Soon',
+              description: 'Project creation form will be available soon',
+            })
+          }
+        >
           <Plus className="w-4 h-4 mr-2" />
           New Project
         </Button>
       </div>
 
-      <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
+      <Card className="glass-card border border-white/10 bg-white/5 text-white">
         <CardHeader>
-          <CardTitle className="text-gray-900 dark:text-white">All Projects ({projects.length})</CardTitle>
+          <CardTitle>All Projects ({projects.length})</CardTitle>
         </CardHeader>
         <CardContent>
           {loading ? (
             <div className="space-y-4">
               {[...Array(3)].map((_, i) => (
-                <div key={i} className="animate-pulse border border-gray-200 dark:border-gray-800 rounded-lg p-4">
-                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                <div key={i} className="animate-pulse border border-white/10 rounded-lg p-4 bg-white/5">
+                  <div className="h-6 bg-white/10 rounded w-3/4 mb-2"></div>
+                  <div className="h-4 bg-white/10 rounded w-1/2"></div>
                 </div>
               ))}
             </div>
           ) : projects.length === 0 ? (
-            <p className="text-gray-600 dark:text-gray-400 text-center py-8">
+            <p className="text-white/70 text-center py-8">
               No projects yet. Create your first project!
             </p>
           ) : (
@@ -128,12 +136,12 @@ export function ProjectManagement() {
               {projects.map((project) => (
                 <div
                   key={project.id}
-                  className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                  className="border border-white/10 rounded-lg p-4 bg-white/5 hover:bg-white/10 transition-colors"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-2">
-                        <h3 className="text-lg font-semibold truncate text-gray-900 dark:text-white">{project.title}</h3>
+                        <h3 className="text-lg font-semibold truncate text-white">{project.title}</h3>
                         <Badge className={getCategoryColor(project.category)}>
                           {project.category}
                         </Badge>
@@ -141,10 +149,10 @@ export function ProjectManagement() {
                           {project.isPublic ? 'Public' : 'Private'}
                         </Badge>
                       </div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                      <p className="text-sm text-white/70 mb-2">
                         {project.summary}
                       </p>
-                      <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500 dark:text-gray-500">
+                      <div className="flex flex-wrap items-center gap-3 text-xs text-white/60">
                         <span>Started: {new Date(project.startDate).toLocaleDateString()}</span>
                         {project.endDate && (
                           <>

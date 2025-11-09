@@ -17,7 +17,7 @@ export default async function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-950">
+    <div className="min-h-screen bg-background text-foreground">
       <AdminDashboard session={session} />
     </div>
   )

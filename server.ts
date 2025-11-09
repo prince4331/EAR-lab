@@ -5,6 +5,10 @@ import { Server } from 'socket.io';
 import next from 'next';
 
 const dev = process.env.NODE_ENV !== 'production';
+if (dev) {
+  process.env.TURBOPACK = process.env.TURBOPACK || '1';
+  process.env.NEXT_PRIVATE_TURBOPACK = process.env.NEXT_PRIVATE_TURBOPACK || '1';
+}
 const currentPort = 3000;
 const hostname = '0.0.0.0';
 

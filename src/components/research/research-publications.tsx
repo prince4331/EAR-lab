@@ -68,25 +68,27 @@ const publications = [
 
 const getCategoryColor = (category: string) => {
   const colors = {
-    autonomy: 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-300',
-    perception: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300',
-    embedded: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300',
-    power: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-300',
-    testing: 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-300'
+    autonomy: 'bg-secondary/10 text-secondary',
+    perception: 'bg-primary/10 text-primary',
+    embedded: 'bg-success/10 text-success',
+    power: 'bg-chart-4/10 text-chart-4',
+    testing: 'bg-destructive/10 text-destructive'
   }
-  return colors[category as keyof typeof colors] || 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-300'
+  return colors[category as keyof typeof colors] || 'bg-white/10 text-white/80'
 }
 
 export function ResearchPublications() {
   return (
-    <section id="publications" className="py-20 bg-muted/30">
-      <div className="container px-4">
+    <section id="publications" className="relative overflow-hidden py-24 text-white">
+      <div className="absolute inset-0 bg-gradient-to-b from-[#020309] via-[#06132b] to-[#02040a]" />
+      <div className="container relative z-10 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <p className="text-sm uppercase tracking-[0.4em] text-white/60 mb-4">Publications</p>
+            <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 text-white">
               Recent Publications
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
               Our research contributes to the academic community through peer-reviewed publications 
               in leading robotics and computer vision journals.
             </p>
@@ -94,11 +96,11 @@ export function ResearchPublications() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {publications.map((pub) => (
-              <Card key={pub.id} className="group hover:shadow-lg transition-all duration-300">
+              <Card key={pub.id} className="group glass-card border border-white/15 bg-white/5 text-white">
                 <CardHeader className="pb-4">
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex-1">
-                      <CardTitle className="text-xl group-hover:text-primary transition-colors line-clamp-2">
+                      <CardTitle className="font-heading text-xl group-hover:text-cyber-teal transition-colors line-clamp-2">
                         {pub.title}
                       </CardTitle>
                       <div className="flex items-center gap-2 mt-2">
@@ -106,12 +108,12 @@ export function ResearchPublications() {
                           {pub.category}
                         </Badge>
                         {pub.featured && (
-                          <Badge variant="outline" className="text-xs">
+                          <Badge variant="outline" className="text-xs border-white/30 text-white/80">
                             Featured
                           </Badge>
                         )}
                       </div>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground mt-2">
+                      <div className="flex items-center gap-4 text-sm text-white/70 mt-2">
                         <div className="flex items-center gap-1">
                           <User className="w-4 h-4" />
                           <span>{pub.authors.join(', ')}</span>
@@ -123,7 +125,7 @@ export function ResearchPublications() {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Badge variant="outline" className="text-xs">
+                      <Badge variant="outline" className="text-xs border-white/30 text-white/80">
                         {pub.citations} citations
                       </Badge>
                     </div>
@@ -131,23 +133,33 @@ export function ResearchPublications() {
                 </CardHeader>
 
                 <CardContent className="space-y-4">
-                  <CardDescription className="text-base leading-relaxed line-clamp-3">
+                  <CardDescription className="text-base leading-relaxed line-clamp-3 text-white/80">
                     {pub.abstract}
                   </CardDescription>
 
-                  <div className="flex items-center justify-between pt-4 border-t">
-                    <div className="text-sm text-muted-foreground">
+                  <div className="flex flex-col gap-4 pt-4 border-t border-white/15 md:flex-row md:items-center md:justify-between">
+                    <div className="text-sm text-white/70 text-center md:text-left">
                       <div className="font-medium">{pub.journal}</div>
                       <div>DOI: {pub.doi}</div>
                     </div>
-                    <div className="flex gap-2">
-                      <Button variant="outline" size="sm" asChild>
+                    <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:justify-end">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full sm:w-auto text-white border-white/40 hover:bg-white/10"
+                        asChild
+                      >
                         <a href={`https://doi.org/${pub.doi}`} target="_blank" rel="noopener noreferrer">
                           <ExternalLink className="w-4 h-4 mr-1" />
                           View Paper
                         </a>
                       </Button>
-                      <Button variant="outline" size="sm" asChild>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full sm:w-auto text-white border-white/40 hover:bg-white/10"
+                        asChild
+                      >
                         <a href={`/contact?publication=${pub.id}`}>
                           <Quote className="w-4 h-4 mr-1" />
                           Discuss Research
@@ -161,7 +173,7 @@ export function ResearchPublications() {
           </div>
 
           <div className="text-center mt-12">
-            <Button variant="outline" size="lg" asChild>
+            <Button variant="outline" size="lg" className="text-white border-white/40 hover:bg-white/10" asChild>
               <a href="https://scholar.google.com/citations?user=EARLab" target="_blank" rel="noopener noreferrer">
                 View All Publications on Google Scholar
                 <ExternalLink className="ml-2 h-5 w-5" />

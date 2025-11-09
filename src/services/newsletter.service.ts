@@ -23,7 +23,7 @@ export interface NewsletterStats {
   sourceBreakdown: Record<string, number>;
 }
 
-class NewsletterService {
+export class NewsletterService {
   /**
    * Subscribe to newsletter with double opt-in
    */

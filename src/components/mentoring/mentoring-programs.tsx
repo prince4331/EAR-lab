@@ -18,7 +18,7 @@ const mentoringPrograms = [
     title: '1:1 Mentoring',
     description: 'Personalized guidance from industry experts tailored to your career goals and technical challenges.',
     icon: Users,
-    color: 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-300',
+    color: 'text-secondary',
     duration: '3-12 months',
     price: '$500-2000/month',
     level: 'intermediate-to-advanced',
@@ -42,7 +42,7 @@ const mentoringPrograms = [
     title: 'Team Mentoring',
     description: 'Group mentoring for robotics teams looking to improve their processes and technical capabilities.',
     icon: Users,
-    color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300',
+    color: 'text-primary',
     duration: '6-12 months',
     price: '$2000-8000/month',
     level: 'beginner-to-intermediate',
@@ -66,7 +66,7 @@ const mentoringPrograms = [
     title: 'Corporate Training',
     description: 'Customized training programs for corporate teams on specific robotics technologies and methodologies.',
     icon: Award,
-    color: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300',
+    color: 'text-success',
     duration: '1-5 days',
     price: '$5000-15000/day',
     level: 'all-levels',
@@ -90,7 +90,7 @@ const mentoringPrograms = [
     title: 'Intensive Workshops',
     description: 'Focused 2-3 day intensive workshops on specific robotics topics and technologies.',
     icon: Calendar,
-    color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-300',
+    color: 'text-chart-4',
     duration: '2-3 days',
     price: '$1500-5000',
     level: 'beginner-to-advanced',
@@ -114,7 +114,7 @@ const mentoringPrograms = [
     title: 'Online Courses',
     description: 'Self-paced online courses with video lectures, exercises, and community support.',
     icon: BookOpen,
-    color: 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-300',
+    color: 'text-destructive',
     duration: '4-12 weeks',
     price: '$299-999',
     level: 'beginner-to-advanced',
@@ -137,62 +137,63 @@ const mentoringPrograms = [
 
 export function MentoringPrograms() {
   return (
-    <section id="programs" className="py-20 bg-background">
-      <div className="container px-4">
+    <section id="programs" className="relative overflow-hidden py-24 text-white">
+      <div className="absolute inset-0 bg-gradient-to-b from-[#02040a] via-[#061530] to-[#050912]" />
+      <div className="container relative z-10 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <p className="text-sm uppercase tracking-[0.4em] text-white/60 mb-4">Programs</p>
+            <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 text-white">
               Our Mentoring Programs
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Choose the program that best fits your learning style, career goals, and schedule. 
-              All programs are taught by industry experts with real-world experience.
+            <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
+              Choose the program that fits your learning style, career goals, and schedule. Every session is led by engineers who ship production robotics.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {mentoringPrograms.map((program) => (
-              <Card key={program.id} className="group hover:shadow-lg transition-all duration-300">
+              <Card key={program.id} className="group glass-card border border-white/15 bg-white/5 text-white">
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-4 mb-3">
-                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${program.color}`}>
+                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center bg-white/10 border border-white/20 ${program.color}`}>
                       <program.icon className="w-6 h-6" />
                     </div>
                     <div className="flex-1">
-                      <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                      <CardTitle className="font-heading text-xl group-hover:text-cyber-teal transition-colors text-white">
                         {program.title}
                       </CardTitle>
                       <div className="flex items-center gap-2 mt-1">
-                        <Badge variant="outline" className="text-xs">
+                        <Badge variant="outline" className="text-xs border-white/30 text-white/80">
                           {program.level}
                         </Badge>
                         {program.popular && (
-                          <Badge variant="default" className="text-xs">
+                          <Badge className="text-xs bg-white/15 text-white px-3">
                             Popular
                           </Badge>
                         )}
                       </div>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground mt-2">
+                      <div className="flex items-center gap-4 text-sm text-white/70 mt-2">
                         <div className="flex items-center gap-1">
                           <Clock className="w-4 h-4" />
                           <span>{program.duration}</span>
                         </div>
-                        <div className="font-semibold">{program.price}</div>
+                        <div className="font-semibold text-white">{program.price}</div>
                       </div>
                     </div>
                   </div>
-                  <CardDescription className="text-base leading-relaxed">
+                  <CardDescription className="text-base leading-relaxed text-white/70">
                     {program.description}
                   </CardDescription>
                 </CardHeader>
 
                 <CardContent className="space-y-6">
                   <div>
-                    <h4 className="font-semibold mb-3">What's Included</h4>
+                    <h4 className="font-heading font-semibold mb-3 text-white">What's Included</h4>
                     <ul className="space-y-2">
                       {program.features.map((feature, index) => (
-                        <li key={index} className="flex items-start gap-2 text-sm">
-                          <div className="w-2 h-2 bg-primary rounded-full mt-2"></div>
+                        <li key={index} className="flex items-start gap-2 text-sm text-white/70">
+                          <div className="w-2 h-2 bg-electric-blue rounded-full mt-2"></div>
                           <span>{feature}</span>
                         </li>
                       ))}
@@ -200,19 +201,22 @@ export function MentoringPrograms() {
                   </div>
 
                   <div>
-                    <h4 className="font-semibold mb-3">Expected Outcomes</h4>
+                    <h4 className="font-heading font-semibold mb-3 text-white">Expected Outcomes</h4>
                     <ul className="space-y-2">
                       {program.outcomes.map((outcome, index) => (
-                        <li key={index} className="flex items-start gap-2 text-sm">
-                          <Target className="w-4 h-4 text-primary mt-1" />
+                        <li key={index} className="flex items-start gap-2 text-sm text-white/70">
+                          <Target className="w-4 h-4 text-cyber-teal mt-1" />
                           <span>{outcome}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className="pt-6 border-t">
-                    <Button className="w-full" asChild>
+                  <div className="pt-6 border-t border-white/15">
+                    <Button
+                      className="w-full md:w-auto bg-gradient-to-r from-[#0f82fe] to-[#00c2a8] btn-glow justify-center"
+                      asChild
+                    >
                       <a href={`/contact?mentoring=${program.id}`}>
                         Get Started with {program.title}
                         <ArrowRight className="ml-2 h-4 w-4" />
@@ -226,16 +230,16 @@ export function MentoringPrograms() {
 
           {/* Program Comparison */}
           <div className="mt-16">
-            <div className="bg-muted/30 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold mb-6 text-center">
+            <div className="glass-card border border-white/15 bg-white/5 rounded-2xl p-8 text-white">
+              <h3 className="font-heading text-2xl font-bold mb-6 text-center">
                 Not Sure Which Program to Choose?
               </h3>
-              <p className="text-center text-muted-foreground mb-8">
+              <p className="text-center text-white/70 mb-8">
                 Schedule a free 30-minute consultation with our mentoring team to discuss your goals 
                 and find the perfect program for your needs.
               </p>
               <div className="text-center">
-                <Button variant="outline" size="lg" asChild>
+                <Button variant="outline" size="lg" className="text-white border-white/40 hover:bg-white/10" asChild>
                   <a href="/contact?consultation=true">
                     Schedule Free Consultation
                     <Calendar className="ml-2 h-5 w-5" />

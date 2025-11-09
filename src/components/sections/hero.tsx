@@ -1,86 +1,89 @@
-'use client'
+﻿'use client'
 
 import { Button } from '@/components/ui/button'
-import { ArrowRight, Play, Sparkles } from 'lucide-react'
+import { ArrowRight, Code, Cpu, Sparkles } from 'lucide-react'
 import Link from 'next/link'
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted/20">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-background to-background" />
-      
-      {/* Animated Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
-        <div className="absolute top-40 right-10 w-72 h-72 bg-teal-500/10 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse" style={{animationDelay: '2s'}}></div>
-        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-purple-500/10 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse" style={{animationDelay: '4s'}}></div>
-      </div>
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#050b18] text-white">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#040916] via-[#071b3d] to-[#021126]" />
+      <div
+        className="absolute inset-0 opacity-30"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 20% 20%, rgba(0,194,168,0.3), transparent 45%), radial-gradient(circle at 80% 0%, rgba(15,130,254,0.35), transparent 40%)",
+        }}
+      />
+      <svg className="absolute inset-0 w-full h-full text-white/10" aria-hidden="true">
+        <defs>
+          <pattern id="hero-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="currentColor" strokeWidth="0.5" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#hero-grid)" />
+      </svg>
 
-      <div className="relative z-10 container px-4 pt-16 sm:pt-20 pb-12 sm:pb-16">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-primary/10 rounded-full text-xs sm:text-sm font-medium text-primary mb-6 sm:mb-8">
-            <Sparkles className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span>Advancing Robotics Innovation</span>
+      <div className="relative z-10 container px-4 pt-24 pb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="text-center lg:text-left">
+            <div className="inline-flex items-center gap-2 px-5 py-2 text-xs font-heading tracking-[0.35em] uppercase text-white/80 bg-white/10 rounded-full border border-white/15">
+              <Sparkles className="w-3.5 h-3.5" />
+              Capabilities
+            </div>
+
+            <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight mb-6 leading-tight">
+              EAR Lab. Embedded. Autonomous. Robotics.
+            </h1>
+
+            <p className="text-lg md:text-xl text-white/70 mb-10 max-w-2xl mx-auto lg:mx-0">
+              Innovating the future of modular robotics with aerospace-grade rigor.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <Button
+                size="lg"
+                className="text-base px-8 py-6 font-heading tracking-wide bg-gradient-to-r from-[#0f82fe] to-[#00c2a8]"
+                asChild
+              >
+                <Link href="/contact">
+                  Get Started
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="text-base px-8 py-6 font-heading tracking-wide border-white/40 text-white hover:bg-white/10"
+                asChild
+              >
+                <Link href="/projects">Learn More</Link>
+              </Button>
+            </div>
           </div>
 
-          {/* Main Heading */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight mb-4 sm:mb-6">
-            <span className="block text-foreground">EAR Lab —</span>
-            <span className="block bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
-              Embedded. Autonomous. Robotics.
-            </span>
-          </h1>
-
-          {/* Subheading */}
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed px-4 sm:px-0">
-            We research, prototype, and build modular robotics solutions — from embedded controllers to autonomous perception modules. Partner with us for faster innovation cycles and robust, production-ready systems.
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-12 sm:mb-16 px-4 sm:px-0">
-            <Button size="lg" className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto" asChild>
-              <Link href="/contact">
-                Request Collaboration
-                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-              </Link>
-            </Button>
-            <Button variant="outline" size="lg" className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto" asChild>
-              <Link href="/projects">
-                Explore Projects
-                <Play className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-              </Link>
-            </Button>
-          </div>
-
-          {/* Hero Visual */}
-          <div className="relative mt-12 sm:mt-16 px-4 sm:px-0">
-            <div className="aspect-video bg-muted/50 rounded-xl sm:rounded-2xl border sm:border-2 border-border/50 shadow-2xl overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent flex items-center justify-center">
-                <div className="text-center space-y-3 sm:space-y-4 px-4">
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto">
-                    <Play className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
-                  </div>
-                  <p className="text-base sm:text-lg font-medium">Watch Our Lab in Action</p>
-                  <p className="text-xs sm:text-sm text-muted-foreground">2 min overview</p>
+          <div className="relative hidden lg:flex items-center justify-center">
+            <div className="w-full max-w-md aspect-square rounded-[36px] bg-white/5 border border-white/10 backdrop-blur-xl shadow-[0_25px_80px_rgba(1,4,12,0.75)] flex items-center justify-center">
+              <div className="w-[70%] h-[70%] rounded-3xl border border-white/20 flex items-center justify-center animate-spin" style={{ animationDuration: '28s' }}>
+                <div className="w-[70%] h-[70%] rounded-2xl border border-white/30 flex items-center justify-center bg-white/5">
+                  <Cpu size={64} className="text-white/80" />
                 </div>
               </div>
             </div>
-            
-            {/* Floating Cards */}
-            <div className="absolute -top-6 sm:-top-8 -left-4 sm:-left-8 bg-background rounded-lg shadow-lg border p-3 sm:p-4 hidden md:block">
-              <div className="flex items-center space-x-2 sm:space-x-3">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span className="text-xs sm:text-sm font-medium">3 Active Projects</span>
-              </div>
+
+            <div className="absolute top-8 left-0 bg-white/10 rounded-2xl shadow-lg border border-white/15 px-4 py-3 flex items-center space-x-3 backdrop-blur">
+              <div className="w-2 h-2 rounded-full bg-emerald-400" />
+              <span className="text-sm font-semibold text-white">3 Active Programs</span>
             </div>
-            
-            <div className="absolute -bottom-6 sm:-bottom-8 -right-4 sm:-right-8 bg-background rounded-lg shadow-lg border p-3 sm:p-4 hidden md:block">
-              <div className="flex items-center space-x-2 sm:space-x-3">
-                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                <span className="text-xs sm:text-sm font-medium">12 Research Papers</span>
-              </div>
+
+            <div className="absolute bottom-8 right-0 bg-white/10 rounded-2xl shadow-lg border border-white/15 px-4 py-3 flex items-center space-x-3 backdrop-blur">
+              <div className="w-2 h-2 rounded-full bg-blue-400" />
+              <span className="text-sm font-semibold text-white">12 Research Papers</span>
+            </div>
+
+            <div className="absolute bottom-24 left-[-3rem] bg-white/10 rounded-2xl shadow-lg border border-white/15 px-4 py-3 flex items-center space-x-3 backdrop-blur">
+              <Code size={22} className="text-cyan-400" />
+              <span className="text-sm font-semibold text-white">Firmware Dev</span>
             </div>
           </div>
         </div>

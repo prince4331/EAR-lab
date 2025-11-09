@@ -1,7 +1,8 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Github, Twitter, Linkedin, Mail, Phone, MapPin } from 'lucide-react'
+import { Github, Twitter, Linkedin } from 'lucide-react'
 
 const footerLinks = {
   services: [
@@ -9,71 +10,74 @@ const footerLinks = {
     { name: 'Autonomy & AI', href: '/services#autonomy' },
     { name: 'Sensor Integration', href: '/services#sensors' },
     { name: 'Power Monitoring', href: '/services#power' },
-    { name: 'HIL/SIL Testing', href: '/services#testing' },
-    { name: 'Mentoring', href: '/mentoring' },
   ],
   company: [
     { name: 'About Us', href: '/about' },
     { name: 'Projects', href: '/projects' },
     { name: 'Research', href: '/research' },
     { name: 'Blog', href: '/blog' },
-    { name: 'Careers', href: '/about#careers' },
-    { name: 'Contact', href: '/contact' },
   ],
   legal: [
     { name: 'Privacy Policy', href: '/privacy' },
     { name: 'Terms of Service', href: '/terms' },
-    { name: 'Cookie Policy', href: '/cookies' },
   ],
 }
 
+const socialLinks = [
+  { icon: Github, href: 'https://github.com' },
+  { icon: Twitter, href: 'https://twitter.com' },
+  { icon: Linkedin, href: 'https://linkedin.com' },
+]
+
 export function Footer() {
+  const currentYear = new Date().getFullYear()
+
   return (
-    <footer className="bg-muted/50 border-t">
-      <div className="container px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-          {/* Brand Column */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="relative w-8 h-8">
-                <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-sm">EAR</span>
-                </div>
+    <footer className="relative overflow-hidden border-t border-white/10 bg-[#030710] text-white">
+      <div className="absolute inset-0 bg-gradient-to-b from-[#040812] via-[#050f1d] to-[#03060d]" />
+      <div
+        className="absolute inset-0 opacity-15"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 0% 0%, rgba(15,98,254,0.25), transparent 45%), radial-gradient(circle at 100% 0%, rgba(0,194,168,0.25), transparent 45%)",
+        }}
+      />
+      <div
+        className="absolute inset-0 opacity-10"
+        style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg width=\"240\" height=\"240\" viewBox=\"0 0 240 240\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" stroke=\"%230F62FE\" stroke-width=\"0.35\" opacity=\"0.35\"%3E%3Cpath d=\"M0 60h240M0 120h240M0 180h240M60 0v240M120 0v240M180 0v240\"/%3E%3C/g%3E%3C/svg%3E')" }}
+      />
+
+      <div className="container relative z-10 px-4 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+          <div className="lg:col-span-2 space-y-6">
+            <Link href="/" className="inline-flex items-center" aria-label="EAR Lab home">
+              <div className="relative w-14 h-14 sm:w-20 sm:h-20 drop-shadow-[0_0_45px_rgba(15,98,254,0.75)]">
+                <Image src="/logo.png" alt="EAR Lab Logo" fill sizes="(max-width:640px) 56px, 80px" className="object-contain" />
               </div>
-              <span className="font-bold text-xl">Lab</span>
-            </div>
-            <p className="text-muted-foreground mb-6 max-w-md">
-              Embedded | Autonomous | Robotics Lab. We research, prototype, and build modular robotics solutions for faster innovation cycles.
+            </Link>
+            <p className="text-white/70 max-w-lg">
+              Embedded. Autonomous. Robotics. We research, prototype, and operationalize modular robotics systems with
+              aerospace-grade rigor for advanced manufacturing teams.
             </p>
-            
-            {/* Newsletter Signup */}
-            <div className="space-y-4">
-              <h3 className="font-semibold">Subscribe to Our Newsletter</h3>
-              <form className="flex flex-col sm:flex-row gap-2">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1"
-                  required
-                />
-                <Button type="submit">Subscribe</Button>
-              </form>
-              <p className="text-sm text-muted-foreground">
-                Weekly robotics insights and research highlights.
-              </p>
-            </div>
+            <form className="flex flex-col sm:flex-row gap-3">
+              <Input
+                type="email"
+                placeholder="your.email@example.com"
+                className="flex-1 bg-white/5 border-white/15 text-white placeholder:text-white/50"
+                required
+              />
+              <Button className="bg-gradient-to-r from-[#0f82fe] to-[#00c2a8] btn-glow" type="submit">
+                Subscribe
+              </Button>
+            </form>
           </div>
 
-          {/* Services Links */}
           <div>
-            <h3 className="font-semibold mb-4">Services</h3>
-            <ul className="space-y-2">
+            <h3 className="font-heading font-semibold text-lg mb-4 text-white/90">Services</h3>
+            <ul className="space-y-3 text-white/70">
               {footerLinks.services.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
+                  <Link href={link.href} className="hover:text-white transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -81,16 +85,12 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Company Links */}
           <div>
-            <h3 className="font-semibold mb-4">Company</h3>
-            <ul className="space-y-2">
+            <h3 className="font-heading font-semibold text-lg mb-4 text-white/90">Company</h3>
+            <ul className="space-y-3 text-white/70">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
+                  <Link href={link.href} className="hover:text-white transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -98,32 +98,12 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Contact & Legal */}
           <div>
-            <h3 className="font-semibold mb-4">Contact</h3>
-            <div className="space-y-2 mb-6">
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                <Mail className="h-4 w-4" />
-                <span>hello@earlab.tech</span>
-              </div>
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                <Phone className="h-4 w-4" />
-                <span>+1 (555) 123-4567</span>
-              </div>
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                <MapPin className="h-4 w-4" />
-                <span>San Francisco, CA</span>
-              </div>
-            </div>
-
-            <h3 className="font-semibold mb-4">Legal</h3>
-            <ul className="space-y-2">
+            <h3 className="font-heading font-semibold text-lg mb-4 text-white/90">Legal</h3>
+            <ul className="space-y-3 text-white/70">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
+                  <Link href={link.href} className="hover:text-white transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -132,32 +112,20 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t mt-8 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-sm text-muted-foreground">
-              © 2024 EAR Lab. All rights reserved.
-            </p>
-            <div className="flex items-center space-x-4">
+        <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
+          <p className="text-sm text-white/60">&copy; {currentYear} EAR Lab. All rights reserved.</p>
+          <div className="flex items-center space-x-5">
+            {socialLinks.map(({ icon: Icon, href }) => (
               <a
-                href="https://github.com"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                key={href}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/60 hover:text-white transition-colors"
               >
-                <Github className="h-5 w-5" />
+                <Icon className="h-5 w-5" />
               </a>
-              <a
-                href="https://twitter.com"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a
-                href="https://linkedin.com"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Linkedin className="h-5 w-5" />
-              </a>
-            </div>
+            ))}
           </div>
         </div>
       </div>

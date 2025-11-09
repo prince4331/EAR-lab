@@ -11,7 +11,7 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    // Fetch all stats in parallel
+  // Fetch all stats in parallel
     const [
       totalBlogPosts,
       publishedBlogPosts,
@@ -95,6 +95,11 @@ export async function GET() {
           timestamp: b.createdAt,
         })),
       ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()).slice(0, 10),
+    }, {
+      status: 200,
+      headers: {
+        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300'
+      }
     })
   } catch (error) {
     console.error('Admin stats error:', error)

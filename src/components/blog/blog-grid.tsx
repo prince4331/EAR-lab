@@ -8,48 +8,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Input } from '@/components/ui/input'
 import { ArrowRight, Calendar, Clock, User, Search, Filter as FilterIcon } from 'lucide-react'
 import Link from 'next/link'
-
-const blogPosts = [
-  {
-    id: 1,
-    title: 'How to Architect a Modular Autonomy Stack for Warehouse Robots',
-    excerpt: 'Learn the key principles and best practices for building scalable, modular autonomy systems that can adapt to different warehouse environments and requirements.',
-    content: 'A comprehensive guide to warehouse robotics autonomy systems...',
-    author: 'Dr. Sarah Chen',
-    publishedAt: '2024-03-15',
-    readingTime: 12,
-    tags: ['Autonomy', 'ROS2', 'Architecture', 'Warehouse', 'SLAM'],
-    featuredImage: '/blog/autonomy-stack.jpg',
-    slug: 'modular-autonomy-stack-warehouse-robots',
-    category: 'autonomy'
-  },
-  {
-    id: 2,
-    title: 'Choosing the Right Battery Monitoring Approach for Mobile Robots',
-    excerpt: 'A comprehensive guide to battery management systems, from basic voltage monitoring to advanced predictive health analytics for robotic applications.',
-    content: 'Complete guide to battery monitoring systems...',
-    author: 'Mark Rodriguez',
-    publishedAt: '2024-03-10',
-    readingTime: 8,
-    tags: ['Power', 'BMS', 'Battery', 'Mobile Robots', 'Hardware'],
-    featuredImage: '/blog/battery-monitoring.jpg',
-    slug: 'battery-monitoring-mobile-robots',
-    category: 'power'
-  },
-  {
-    id: 3,
-    title: 'Open-source Sensor Fusion Libraries Compared',
-    excerpt: 'We benchmark and compare popular open-source sensor fusion frameworks, analyzing their performance, ease of use, and suitability for robotics applications.',
-    content: 'Comprehensive comparison of sensor fusion libraries...',
-    author: 'Alex Kumar',
-    publishedAt: '2024-03-05',
-    readingTime: 15,
-    tags: ['Sensor Fusion', 'Open Source', 'Benchmark', 'Review', 'Kalman Filter'],
-    featuredImage: '/blog/sensor-fusion-libraries.jpg',
-    slug: 'open-source-sensor-fusion-libraries',
-    category: 'sensors'
-  }
-]
+import BlogPostImage from '@/components/sections/BlogPostImage'
+import { BlogPostRecord } from '@/types/blog'
+import { MEDIA_FALLBACK } from '@/lib/media'
 
 const categories = [
   { value: 'all', label: 'All Categories' },
@@ -59,61 +20,73 @@ const categories = [
   { value: 'power', label: 'Power Systems' }
 ]
 
-const getCategoryColor = (category: string) => {
+const getCategoryColor = (category?: string | null) => {
   const colors = {
-    autonomy: 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-300',
-    embedded: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300',
-    sensors: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300',
-    power: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-300'
+    autonomy: 'bg-secondary/10 text-secondary',
+    embedded: 'bg-primary/10 text-primary',
+    sensors: 'bg-chart-3/10 text-chart-3',
+    power: 'bg-chart-4/10 text-chart-4'
   }
-  return colors[category as keyof typeof colors] || 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-300'
+  if (!category) return 'bg-muted/50 text-muted-foreground'
+  return colors[category as keyof typeof colors] || 'bg-muted/50 text-muted-foreground'
 }
 
-export function BlogGrid() {
+type BlogGridProps = {
+  posts: BlogPostRecord[]
+}
+
+export function BlogGrid({ posts }: BlogGridProps) {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
 
   const filteredPosts = useMemo(() => {
-    return blogPosts.filter(post => {
-      const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+    return posts.filter(post => {
+      const matchesSearch =
+        post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.excerpt?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+
       const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory
       return matchesSearch && matchesCategory
     })
-  }, [searchTerm, selectedCategory])
+  }, [posts, searchTerm, selectedCategory])
 
   return (
-    <section className="py-20 bg-background">
-      <div className="container px-4 max-w-[1800px]">
+    <section className="relative overflow-hidden py-24 text-white">
+      <div className="absolute inset-0 bg-gradient-to-b from-[#050b18] via-[#071530] to-[#030715]" />
+      <div className="container relative z-10 px-4 max-w-[1800px]">
         {/* Filters */}
         <div className="mb-8 md:mb-12">
-          <div className="flex flex-col lg:flex-row gap-4 items-center justify-between mb-6 md:mb-8">
-            <div className="flex items-center gap-2 text-muted-foreground w-full lg:w-auto">
-              <FilterIcon className="w-4 h-4" />
+          <div className="flex flex-col lg:flex-row gap-4 items-center justify-between mb-6 md:mb-8 rounded-2xl border border-white/15 bg-white/5 p-6 backdrop-blur-xl">
+            <div className="flex items-center gap-2 text-white/70 w-full lg:w-auto">
+              <FilterIcon className="w-4 h-4 text-cyan-300" />
               <span className="text-xs sm:text-sm font-medium">
-                Showing {filteredPosts.length} of {blogPosts.length} articles
+                Showing {filteredPosts.length} of {posts.length} articles
               </span>
             </div>
             
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full lg:w-auto">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60 w-4 h-4" />
                 <Input
                   placeholder="Search articles..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 w-full sm:w-64"
+                  className="pl-10 w-full sm:w-64 bg-white/10 border-white/20 text-white placeholder:text-white/50"
                 />
               </div>
               
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="w-full sm:w-48">
-                  <SelectValue placeholder="Category" />
+                <SelectTrigger className="w-full sm:w-48 bg-white/10 border-white/20 text-white">
+                  <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
-                  {categories.map(category => (
-                    <SelectItem key={category.value} value={category.value}>
+                <SelectContent className="dialog-surface border-white/10">
+                  {categories.map((category) => (
+                    <SelectItem
+                      key={category.value}
+                      value={category.value}
+                      className="text-white data-[state=checked]:bg-white/10"
+                    >
                       {category.label}
                     </SelectItem>
                   ))}
@@ -123,44 +96,39 @@ export function BlogGrid() {
           </div>
         </div>
 
-        {/* Blog Posts Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {filteredPosts.map((post) => (
-            <Card key={post.id} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+            <Card key={post.id} className="group overflow-hidden border border-white/15 bg-white/5 backdrop-blur-xl transition-transform duration-200 hover:-translate-y-2">
               {/* Post Image */}
               <div className="aspect-video bg-muted/50 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent flex items-center justify-center">
-                  <div className="text-center text-white">
-                    <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2">
-                      <Calendar className="w-6 h-6" />
-                    </div>
-                    <p className="text-sm font-medium">Blog Post</p>
-                  </div>
-                </div>
+                <BlogPostImage
+                  src={post.featuredImage || MEDIA_FALLBACK}
+                  alt={post.title}
+                />
                 <Badge 
                   className={`absolute top-4 left-4 ${getCategoryColor(post.category)}`}
                   variant="secondary"
                 >
-                  {post.category}
+                  {post.category ?? 'general'}
                 </Badge>
               </div>
 
               <CardHeader className="pb-3">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                <div className="flex items-center gap-2 text-sm text-white/60 mb-2">
                   <div className="flex items-center gap-1">
                     <User className="w-3 h-3" />
-                    <span>{post.author}</span>
+                    <span>{post.author?.name || post.author?.email || 'EAR Lab'}</span>
                   </div>
-                  <span>•</span>
+                  <span aria-hidden="true">&bull;</span>
                   <div className="flex items-center gap-1">
                     <Clock className="w-3 h-3" />
                     <span>{post.readingTime} min read</span>
                   </div>
                 </div>
-                <CardTitle className="text-xl group-hover:text-primary transition-colors line-clamp-2">
+                <CardTitle className="font-heading text-xl text-white group-hover:text-primary transition-colors line-clamp-2">
                   {post.title}
                 </CardTitle>
-                <CardDescription className="text-sm leading-relaxed line-clamp-3">
+                <CardDescription className="text-sm leading-relaxed line-clamp-3 text-white/70">
                   {post.excerpt}
                 </CardDescription>
               </CardHeader>
@@ -169,28 +137,30 @@ export function BlogGrid() {
                 {/* Tags */}
                 <div className="flex flex-wrap gap-1">
                   {post.tags.slice(0, 3).map((tag, index) => (
-                    <Badge key={index} variant="secondary" className="text-xs">
+                    <Badge key={index} variant="secondary" className="text-xs bg-white/10 text-white">
                       {tag}
                     </Badge>
                   ))}
                   {post.tags.length > 3 && (
-                    <Badge variant="secondary" className="text-xs">
+                    <Badge variant="secondary" className="text-xs bg-white/10 text-white">
                       +{post.tags.length - 3}
                     </Badge>
                   )}
                 </div>
 
                 {/* Published Date */}
-                <div className="text-sm text-muted-foreground">
-                  {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  })}
+                <div className="text-sm text-white/60">
+                  {post.publishedAt
+                    ? new Date(post.publishedAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })
+                    : 'Unpublished'}
                 </div>
 
                 {/* CTA */}
-                <Button variant="ghost" size="sm" className="p-0 h-auto font-medium text-primary group-hover:text-primary/80 w-full" asChild>
+                <Button variant="ghost" size="sm" className="p-0 h-auto font-medium text-primary group-hover:text-white w-full" asChild>
                   <Link href={`/blog/${post.slug}`}>
                     Read More
                     <ArrowRight className="ml-1 h-3 w-3" />

@@ -4,7 +4,7 @@ import { ArrowRight, Users, Calendar, Target, Zap } from 'lucide-react'
 
 export function MentoringCTA() {
   return (
-    <section className="py-20 bg-gradient-to-r from-primary to-primary/80">
+    <section className="py-20 bg-gradient-to-r from-primary to-secondary">
       <div className="container px-4">
         <div className="max-w-4xl mx-auto text-center text-white">
           <div className="mb-8">
@@ -13,7 +13,7 @@ export function MentoringCTA() {
             </div>
           </div>
           
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-6">
             Ready to Accelerate Your Career?
           </h2>
           
@@ -26,7 +26,7 @@ export function MentoringCTA() {
             <Card className="bg-white/10 backdrop-blur border border-white/20">
               <CardContent className="p-6 text-center">
                 <Calendar className="w-12 h-12 text-white mb-4 mx-auto" />
-                <h3 className="text-xl font-semibold mb-2">Free Consultation</h3>
+                <h3 className="font-heading text-xl font-semibold mb-2">Free Consultation</h3>
                 <p className="text-sm text-white/80 mb-4">
                   30-minute session to discuss your goals and find the right program
                 </p>
@@ -42,7 +42,7 @@ export function MentoringCTA() {
             <Card className="bg-white/10 backdrop-blur border border-white/20">
               <CardContent className="p-6 text-center">
                 <Target className="w-12 h-12 text-white mb-4 mx-auto" />
-                <h3 className="text-xl font-semibold mb-2">Program Comparison</h3>
+                <h3 className="font-heading text-xl font-semibold mb-2">Program Comparison</h3>
                 <p className="text-sm text-white/80 mb-4">
                   Not sure which program fits your needs?
                 </p>
@@ -58,7 +58,7 @@ export function MentoringCTA() {
             <Card className="bg-white/10 backdrop-blur border border-white/20">
               <CardContent className="p-6 text-center">
                 <Zap className="w-12 h-12 text-white mb-4 mx-auto" />
-                <h3 className="text-xl font-semibold mb-2">Quick Start</h3>
+                <h3 className="font-heading text-xl font-semibold mb-2">Quick Start</h3>
                 <p className="text-sm text-white/80 mb-4">
                   Ready to dive in? Get started immediately
                 </p>
@@ -75,20 +75,20 @@ export function MentoringCTA() {
           {/* Program Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-white/80">
             <div className="text-center">
-              <div className="text-2xl font-bold">500+</div>
-              <div className="text-sm">Hours of Content</div>
+              <div className="font-heading text-3xl font-bold">500+</div>
+              <div className="text-sm uppercase tracking-wider">Hours of Content</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold">50+</div>
-              <div className="text-sm">Expert Mentors</div>
+              <div className="font-heading text-3xl font-bold">50+</div>
+              <div className="text-sm uppercase tracking-wider">Expert Mentors</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold">24/7</div>
-              <div className="text-sm">Support</div>
+              <div className="font-heading text-3xl font-bold">24/7</div>
+              <div className="text-sm uppercase tracking-wider">Support</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold">95%</div>
-              <div className="text-sm">Success Rate</div>
+              <div className="font-heading text-3xl font-bold">95%</div>
+              <div className="text-sm uppercase tracking-wider">Success Rate</div>
             </div>
           </div>
 
@@ -96,7 +96,7 @@ export function MentoringCTA() {
           <div className="mt-12">
             <Card className="bg-white/10 backdrop-blur border border-white/20">
               <CardContent className="p-8 text-center">
-                <h3 className="text-2xl font-semibold mb-4">
+                <h3 className="font-heading text-2xl font-semibold mb-4">
                   Transform Your Robotics Career
                 </h3>
                 <p className="text-lg text-white/80 mb-6">

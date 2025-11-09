@@ -6,8 +6,10 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
-import { ArrowRight, Calendar, ExternalLink, Search, Filter as FilterIcon } from 'lucide-react'
+import { ArrowRight, Calendar, Search, Filter as FilterIcon } from 'lucide-react'
 import Link from 'next/link'
+import ProjectImage from '@/components/sections/ProjectImage'
+import { PROJECT_MEDIA } from '@/lib/media'
 
 const projects = [
   {
@@ -51,7 +53,7 @@ We implemented a multi-layered autonomy stack:
     startDate: '2024-01-15',
     endDate: '2024-03-30',
     clientName: 'LogiTech Solutions',
-    featuredImage: '/projects/warehouse-robot.jpg',
+    featuredImage: PROJECT_MEDIA.warehouseRobot,
     slug: 'autonomous-warehouse-robot',
     outcomes: {
       accuracy: '99.8%',
@@ -101,7 +103,7 @@ We developed a multi-tiered BMS architecture:
     startDate: '2023-11-01',
     endDate: '2024-02-15',
     clientName: 'EV Motors Inc',
-    featuredImage: '/projects/battery-management.jpg',
+    featuredImage: PROJECT_MEDIA.batteryManagement,
     slug: 'smart-battery-management',
     outcomes: {
       batteryLife: '+25%',
@@ -151,7 +153,7 @@ We implemented a comprehensive sensor fusion framework:
     startDate: '2023-09-15',
     endDate: '2023-12-20',
     clientName: 'AeroDynamics',
-    featuredImage: '/projects/sensor-fusion.jpg',
+    featuredImage: PROJECT_MEDIA.sensorFusion,
     slug: 'multi-sensor-fusion',
     outcomes: {
       accuracy: '5cm',
@@ -201,7 +203,7 @@ We designed a multi-layered control system:
     startDate: '2023-07-01',
     endDate: '2023-10-15',
     clientName: 'Precision Manufacturing Co',
-    featuredImage: '/projects/robotic-arm-controller.jpg',
+    featuredImage: PROJECT_MEDIA.roboticArmController,
     slug: 'realtime-robotic-controller',
     outcomes: {
       latency: '0.8ms',
@@ -251,7 +253,7 @@ We developed a comprehensive inspection system:
     startDate: '2023-05-15',
     endDate: '2023-08-30',
     clientName: 'Quality Manufacturing Inc',
-    featuredImage: '/projects/ai-inspection.jpg',
+    featuredImage: PROJECT_MEDIA.aiInspection,
     slug: 'ai-quality-inspection',
     outcomes: {
       accuracy: '99.5%',
@@ -302,7 +304,7 @@ We built a multi-tiered fleet management platform:
     startDate: '2023-03-01',
     endDate: '2023-06-30',
     clientName: 'SwiftDelivery Logistics',
-    featuredImage: '/projects/drone-fleet-management.jpg',
+    featuredImage: PROJECT_MEDIA.droneFleet,
     slug: 'drone-fleet-management',
     outcomes: {
       efficiency: '+35%',
@@ -323,12 +325,12 @@ const categories = [
 
 const getCategoryColor = (category: string) => {
   const colors = {
-    autonomy: 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-300',
-    embedded: 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300',
-    sensors: 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300',
-    power: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-300'
+    autonomy: 'bg-secondary/10 text-secondary',
+    embedded: 'bg-primary/10 text-primary',
+    sensors: 'bg-chart-3/10 text-chart-3',
+    power: 'bg-chart-4/10 text-chart-4'
   }
-  return colors[category as keyof typeof colors] || 'bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-300'
+  return colors[category as keyof typeof colors] || 'bg-muted/50 text-muted-foreground'
 }
 
 export function ProjectsGrid() {
@@ -346,34 +348,45 @@ export function ProjectsGrid() {
   }, [searchTerm, selectedCategory])
 
   return (
-    <section className="py-20 bg-background">
-      <div className="container px-4">
-        {/* Filters */}
-        <div className="mb-12">
-          <div className="flex flex-col lg:flex-row gap-4 items-center justify-between mb-8">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <FilterIcon className="w-4 h-4" />
+    <section className="relative overflow-hidden py-24 text-white">
+      <div className="absolute inset-0 bg-gradient-to-b from-[#050b18] via-[#07142d] to-[#030715]" />
+      <div className="absolute inset-0 opacity-25" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg width=\"200\" height=\"200\" viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" opacity=\"0.15\" stroke=\"%230f62fe\" stroke-width=\"0.4\"%3E%3Cpath d=\"M0 50h200M0 100h200M0 150h200M50 0v200M100 0v200M150 0v200\"/%3E%3C/g%3E%3C/svg%3E')" }} />
+      <div className="container relative z-10 px-4">
+        <div className="mb-12 space-y-6">
+          <div className="text-center lg:text-left">
+            <p className="text-sm uppercase tracking-[0.35em] text-white/60 mb-3">Case studies</p>
+            <h2 className="font-heading text-3xl md:text-5xl font-semibold text-white">
+              Field-tested deployments from EAR Lab
+            </h2>
+            <p className="text-base md:text-lg text-white/70 mt-3 max-w-3xl">
+              Search across embedded controllers, perception stacks, and autonomy programs delivered for logistics, aerospace, mobility, and advanced manufacturing teams.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-4 rounded-2xl border border-white/15 bg-white/5 p-6 backdrop-blur-xl lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex items-center gap-3 text-white/70">
+              <FilterIcon className="w-4 h-4 text-cyan-300" />
               <span className="text-sm font-medium">
-                Showing {filteredProjects.length} of {projects.length} projects
+                Showing {filteredProjects.length} of {projects.length} programs
               </span>
             </div>
-            
-            <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+
+            <div className="flex w-full flex-col gap-4 sm:flex-row lg:w-auto">
+              <div className="relative flex-1 min-w-[220px]">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-white/60 w-4 h-4" />
                 <Input
                   placeholder="Search projects..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 w-full sm:w-64"
+                  className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/50"
                 />
               </div>
-              
+
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="w-full sm:w-48">
+                <SelectTrigger className="sm:w-48 bg-white/10 border-white/20 text-white">
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-[#050b18] text-white border-white/10">
                   {categories.map(category => (
                     <SelectItem key={category.value} value={category.value}>
                       {category.label}
@@ -386,20 +399,15 @@ export function ProjectsGrid() {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {filteredProjects.map((project) => (
-            <Card key={project.id} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-              {/* Project Image */}
-              <div className="aspect-video bg-muted/50 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent flex items-center justify-center">
-                  <div className="text-center text-white">
-                    <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2">
-                      <ExternalLink className="w-6 h-6" />
-                    </div>
-                    <p className="text-sm font-medium">Case Study</p>
-                  </div>
-                </div>
-                <Badge 
+            <Card
+              key={project.id}
+              className="group flex h-full flex-col overflow-hidden border border-white/15 bg-white/5 backdrop-blur-xl"
+            >
+              <div className="relative aspect-video overflow-hidden rounded-t-xl bg-muted/40">
+                <ProjectImage src={project.featuredImage} alt={project.title} />
+                <Badge
                   className={`absolute top-4 left-4 ${getCategoryColor(project.category)}`}
                   variant="secondary"
                 >
@@ -408,45 +416,44 @@ export function ProjectsGrid() {
               </div>
 
               <CardHeader className="pb-3">
-                <CardTitle className="text-xl group-hover:text-primary transition-colors line-clamp-2">
+                <CardTitle className="text-xl text-white transition-colors group-hover:text-primary line-clamp-2">
                   {project.title}
                 </CardTitle>
-                <CardDescription className="text-sm leading-relaxed line-clamp-3">
+                <CardDescription className="text-sm leading-relaxed text-white/70 line-clamp-3">
                   {project.summary}
                 </CardDescription>
               </CardHeader>
 
-              <CardContent className="space-y-4">
-                {/* Tech Tags */}
+              <CardContent className="space-y-4 mt-auto">
                 <div className="flex flex-wrap gap-1">
                   {project.techTags.slice(0, 3).map((tag, index) => (
-                    <Badge key={index} variant="outline" className="text-xs">
+                    <Badge key={index} variant="outline" className="text-xs border-white/20 text-white/80">
                       {tag}
                     </Badge>
                   ))}
                   {project.techTags.length > 3 && (
-                    <Badge variant="outline" className="text-xs">
+                    <Badge variant="outline" className="text-xs border-white/20 text-white/80">
                       +{project.techTags.length - 3}
                     </Badge>
                   )}
                 </div>
 
-                {/* Project Meta */}
-                <div className="flex items-center justify-between text-sm text-muted-foreground">
+                <div className="flex items-center justify-between text-sm text-white/60">
                   <div className="flex items-center gap-1">
                     <Calendar className="w-3 h-3" />
                     <span>{new Date(project.startDate).getFullYear()}</span>
                   </div>
-                  <span className="text-xs">{project.clientName}</span>
+                  <span className="text-xs uppercase tracking-wide text-white/70">
+                    {project.clientName}
+                  </span>
                 </div>
 
-                {/* Key Outcomes */}
                 {project.outcomes && (
                   <div className="grid grid-cols-2 gap-2 text-xs">
                     {Object.entries(project.outcomes).slice(0, 2).map(([key, value]) => (
-                      <div key={key} className="bg-muted/50 rounded p-2 text-center">
+                      <div key={key} className="rounded-xl border border-white/15 bg-white/5 p-3 text-center">
                         <div className="font-semibold text-primary">{value}</div>
-                        <div className="text-muted-foreground capitalize">
+                        <div className="text-white/60 capitalize">
                           {key.replace(/([A-Z])/g, ' $1').trim()}
                         </div>
                       </div>
@@ -454,10 +461,14 @@ export function ProjectsGrid() {
                   </div>
                 )}
 
-                {/* CTA */}
-                <Button variant="ghost" size="sm" className="p-0 h-auto font-medium text-primary group-hover:text-primary/80 w-full" asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full p-0 h-auto font-medium text-primary hover:text-white"
+                  asChild
+                >
                   <Link href={`/projects/${project.slug}`}>
-                    View Full Case Study
+                    View full case study
                     <ArrowRight className="ml-1 h-3 w-3" />
                   </Link>
                 </Button>
@@ -468,19 +479,23 @@ export function ProjectsGrid() {
 
         {/* No Results */}
         {filteredProjects.length === 0 && (
-          <div className="text-center py-12">
-            <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-              <Search className="w-8 h-8 text-muted-foreground" />
+          <div className="text-center py-16">
+            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-white/20 bg-white/5">
+              <Search className="h-6 w-6 text-white/60" />
             </div>
-            <h3 className="text-lg font-semibold mb-2">No projects found</h3>
-            <p className="text-muted-foreground mb-4">
-              Try adjusting your search terms or category filter
+            <h3 className="text-lg font-semibold text-white mb-2">No projects found</h3>
+            <p className="text-white/70 mb-6">
+              Try adjusting your search terms or category filters.
             </p>
-            <Button variant="outline" onClick={() => {
-              setSearchTerm('')
-              setSelectedCategory('all')
-            }}>
-              Clear Filters
+            <Button
+              variant="outline"
+              className="border-white/30 text-white"
+              onClick={() => {
+                setSearchTerm('')
+                setSelectedCategory('all')
+              }}
+            >
+              Clear filters
             </Button>
           </div>
         )}

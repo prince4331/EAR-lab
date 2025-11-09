@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export function BlogCTA() {
   return (
-    <section className="py-20 bg-gradient-to-r from-primary to-primary/80">
+    <section className="py-20 bg-gradient-to-r from-primary to-secondary">
       <div className="container px-4">
         <div className="max-w-4xl mx-auto text-center text-white">
           <div className="mb-8">
@@ -13,7 +13,7 @@ export function BlogCTA() {
             </div>
           </div>
           
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-6">
             Stay Updated with Robotics Insights
           </h2>
           
@@ -27,7 +27,7 @@ export function BlogCTA() {
               <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <MessageCircle className="w-6 h-6" />
               </div>
-              <h3 className="font-semibold mb-2">Weekly Newsletter</h3>
+              <h3 className="font-heading font-semibold mb-2">Weekly Newsletter</h3>
               <p className="text-sm text-white/80 mb-4">
                 Curated robotics insights, research highlights, and exclusive content delivered weekly.
               </p>
@@ -43,7 +43,7 @@ export function BlogCTA() {
               <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <BookOpen className="w-6 h-6" />
               </div>
-              <h3 className="font-semibold mb-2">Deep-Dive Articles</h3>
+              <h3 className="font-heading font-semibold mb-2">Deep-Dive Articles</h3>
               <p className="text-sm text-white/80 mb-4">
                 Comprehensive technical guides and case studies from our real-world projects.
               </p>
@@ -59,7 +59,7 @@ export function BlogCTA() {
               <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Rss className="w-6 h-6" />
               </div>
-              <h3 className="font-semibold mb-2">RSS Feed</h3>
+              <h3 className="font-heading font-semibold mb-2">RSS Feed</h3>
               <p className="text-sm text-white/80 mb-4">
                 Subscribe to our RSS feed for instant updates on new articles and research.
               </p>
