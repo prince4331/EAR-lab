@@ -65,7 +65,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     // Dynamic blog posts
     const blogPosts = await prisma.blogPost.findMany({
-      where: { status: 'PUBLISHED' },
+      where: { status: 'published' },
       select: {
         slug: true,
         updatedAt: true,
@@ -82,7 +82,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Dynamic projects
     const projects = await prisma.project.findMany({
-      where: { isVisible: true },
+      where: { isPublic: true },
       select: {
         slug: true,
         updatedAt: true,
